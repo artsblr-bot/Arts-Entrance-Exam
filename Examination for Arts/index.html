@@ -1746,7 +1746,6 @@ function initQuestions() {
   answers = new Array(questions.length).fill(null);
   saveState();
 }
-initQuestions();
 
 const taglines = [
   "Where Creativity Meets Purpose",
@@ -1844,6 +1843,8 @@ function startTaglineRotation() {
 function stopTaglineRotation() {
   if (taglineInterval) { clearInterval(taglineInterval); taglineInterval = null; }
 }
+
+initQuestions();
 
 document.getElementById('btnStart').addEventListener('click', startExam);
 document.getElementById('btnRestart').addEventListener('click', resetExam);
