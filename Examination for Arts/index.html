@@ -510,7 +510,7 @@ body {
 }
 
 .question-badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   background: var(--cream);
@@ -534,6 +534,21 @@ body {
   color: var(--text-light);
   letter-spacing: 0.3px;
 }
+
+.q-timer {
+  margin-left: auto;
+  font-size: 15px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  letter-spacing: 0.2px;
+  min-width: 32px;
+  text-align: right;
+  transition: color 0.3s;
+}
+.q-timer.warning { color: #E68A00; }
+.q-timer.critical { color: var(--red); animation: timerPulse 0.5s ease-in-out infinite alternate; }
+@keyframes timerPulse { from { opacity: 1; } to { opacity: 0.4; } }
 
 .question-text {
   font-size: 20px;
@@ -1560,6 +1575,7 @@ body {
       <div class="question-badge">
         <span class="num" id="qNum">Q1</span>
         <span class="section-label" id="qSection">Photography</span>
+        <span class="q-timer" id="qTimer">40s</span>
       </div>
       <div class="question-text" id="qText"></div>
       <div class="options" id="options"></div>
@@ -1567,7 +1583,6 @@ body {
         <button class="btn-skip hidden" id="btnSkip">Skip →</button>
       </div>
       <div class="nav-buttons">
-        <button class="btn btn-prev hidden" id="btnPrev">← Back</button>
         <button class="btn btn-next" id="btnNext">Next →</button>
         <button class="btn btn-submit-exam hidden" id="btnSubmit">Submit ✓</button>
       </div>
@@ -1693,11 +1708,13 @@ const qNum = document.getElementById('qNum');
 const qSection = document.getElementById('qSection');
 const qText = document.getElementById('qText');
 const optionsEl = document.getElementById('options');
-const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 const btnSubmit = document.getElementById('btnSubmit');
 const progressFill = document.getElementById('progressFill');
 const progressCount = document.getElementById('progressCount');
+
+let questionTimer = null, timeLeft = 40;
+const timerEl = document.getElementById('qTimer');
 
 const LS = 'ga_';
 
@@ -1890,6 +1907,7 @@ function startExam() {
 }
 
 function exitToReg() {
+  stopTimer();
   stopTaglineRotation();
   clearState();
   landing.style.display = 'block';
@@ -1908,6 +1926,7 @@ function exitToReg() {
 }
 
 function endExam() {
+  stopTimer();
   stopTaglineRotation();
   clearState();
   document.getElementById('resultModal').classList.remove('show');
@@ -1926,6 +1945,7 @@ function endExam() {
 }
 
 function resetExam() {
+  stopTimer();
   stopTaglineRotation();
   clearState();
   document.getElementById('resultModal').classList.remove('show');
@@ -1958,6 +1978,29 @@ function getSectionName(idx) {
   return '';
 }
 
+function stopTimer() {
+  if (questionTimer) { clearInterval(questionTimer); questionTimer = null; }
+}
+function startTimer() {
+  stopTimer();
+  if (!timerEl) return;
+  timeLeft = 40;
+  timerEl.textContent = '40s';
+  timerEl.className = 'q-timer';
+  questionTimer = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft + 's';
+    if (timeLeft <= 5) timerEl.className = 'q-timer critical';
+    else if (timeLeft <= 10) timerEl.className = 'q-timer warning';
+    if (timeLeft <= 0) {
+      stopTimer();
+      if (current === questions.length - 1) { showResults(); return; }
+      const next = current + 1;
+      if (next < questions.length) { current = next; render(); saveState(); }
+    }
+  }, 1000);
+}
+
 function render() {
   const q = questions[current];
   qNum.textContent = `Q${current + 1}`;
@@ -1974,7 +2017,6 @@ function render() {
     optionsEl.appendChild(div);
   });
 
-  btnPrev.classList.toggle('hidden', current === 0);
   btnNext.classList.toggle('hidden', current === questions.length - 1);
   btnSubmit.classList.toggle('hidden', current !== questions.length - 1);
 
@@ -1993,11 +2035,13 @@ function render() {
   qCard.classList.remove('question-enter');
   void qCard.offsetWidth;
   qCard.classList.add('question-enter');
+  startTimer();
 }
 
 function select(idx) {
   answers[current] = (answers[current] === idx) ? null : idx;
   saveState();
+  stopTimer();
   const optEls = optionsEl.children;
   for (let i = 0; i < optEls.length; i++) {
     optEls[i].className = 'option' + (answers[current] === i ? ' selected' : '');
@@ -2017,7 +2061,6 @@ function select(idx) {
   progressCount.textContent = `${answered} / ${questions.length}`;
 }
 
-btnPrev.addEventListener('click', () => { if (current > 0) { current--; render(); saveState(); } });
 btnNext.addEventListener('click', () => { if (current < questions.length - 1) { current++; render(); saveState(); } });
 btnSubmit.addEventListener('click', showResults);
 document.getElementById('btnSkip').addEventListener('click', () => {
@@ -2150,6 +2193,7 @@ function showResults() {
   setTimeout(() => { animateModalScore(correct, pct); }, 400);
   setTimeout(() => { burstConfetti(120); }, 600);
   setTimeout(() => { burstConfetti(80); }, 1100);
+  setTimeout(() => { endExam(); }, 60000);
 }
 
 document.getElementById('modalBtn').addEventListener('click', endExam);
