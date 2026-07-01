@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arts Entrance Exam</title>
+<link rel="icon" type="image/png" sizes="32x32" href="small_logo.png">
+<link rel="icon" type="image/png" sizes="64x64" href="small_logo.png">
+<link rel="apple-touch-icon" sizes="120x120" href="small_logo.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #CC0000;
+  --red-dark: #990000;
+  --red-light: #E31E24;
+  --gold: #C8A45C;
+  --gold-light: #E8D5A3;
+  --cream: #FFF5F5;
+  --cream-dark: #FFE0E0;
+  --cream-warm: #FDF8F3;
+  --white: #FFFFFF;
+  --text: #1A0000;
+  --text-light: #663333;
+  --text-muted: #997A7A;
+  --border: #F0D6D6;
+  --gradient: linear-gradient(135deg, #CC0000, #E31E24);
+  --shadow-sm: 0 2px 8px rgba(100, 20, 20, 0.05);
+  --shadow-md: 0 6px 24px rgba(100, 20, 20, 0.06);
+  --shadow-lg: 0 12px 48px rgba(100, 20, 20, 0.08);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--cream-warm);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.top-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--red);
+}
+
+/* ===== HEADER ===== */
+.main-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(204, 0, 0, 0.06);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  background: var(--white);
+  padding: 6px 18px 6px 14px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(204, 0, 0, 0.18), 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid rgba(204,0,0,0.08);
+  transition: box-shadow 0.25s, transform 0.2s;
+}
+.header-left:hover {
+  box-shadow: 0 5px 20px rgba(204, 0, 0, 0.25), 0 2px 6px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.header-left .logo-img {
+  height: 52px;
+  width: auto;
+}
+
+.header-left .brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-left .brand-top {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.header-left .brand-sub {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-right a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.header-right a:hover {
+  background: var(--cream);
+  color: var(--red);
+}
+
+.btn-apply {
+  background: var(--gradient) !important;
+  color: var(--white) !important;
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+.btn-apply:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(204, 0, 0, 0.25);
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(160deg, #CC0000 0%, #7A0000 40%, #4D0000 100%);
+  background-size: 200% 200%;
+  animation: hero-shift 10s ease-in-out infinite;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px 24px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, var(--cream-warm), transparent);
+  z-index: 1;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  animation: hero-drift 20s linear infinite;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 640px; }
+
+.hero-content::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin: 18px auto 12px;
+  border-radius: 3px;
+  opacity: 0.5;
+  animation: fade-up 0.5s ease 0.3s both;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(200, 164, 92, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(200, 164, 92, 0.3);
+  color: var(--gold-light);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: fade-up 0.5s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 0;
+  letter-spacing: -0.5px;
+  animation: fade-up 0.5s ease 0.1s both;
+  min-height: 3.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hero p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto;
+  animation: fade-up 0.5s ease 0.3s both;
+}
+
+/* ===== LANDING ===== */
+.landing-section {
+  max-width: 640px;
+  margin: -60px auto 40px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-ambient::before, .hero-ambient::after {
+  content: '';
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  box-shadow:
+    40px 180px 0 0 rgba(255,255,255,0.15),
+    120px 60px 0 0 rgba(255,255,255,0.12),
+    200px 280px 0 1px rgba(255,255,255,0.08),
+    320px 100px 0 0 rgba(255,255,255,0.15),
+    450px 220px 0 1px rgba(255,255,255,0.1),
+    550px 140px 0 0 rgba(255,255,255,0.12),
+    700px 300px 0 0 rgba(255,255,255,0.08),
+    150px 320px 0 1px rgba(255,255,255,0.1),
+    400px 350px 0 0 rgba(255,255,255,0.12),
+    620px 40px 0 0 rgba(255,255,255,0.08),
+    280px 400px 0 1px rgba(255,255,255,0.1),
+    500px 380px 0 0 rgba(255,255,255,0.08);
+}
+.hero-ambient::before {
+  animation: float-up 8s ease-in-out infinite;
+}
+.hero-ambient::after {
+  animation: float-up 10s ease-in-out 3s infinite;
+  width: 3px; height: 3px;
+  box-shadow:
+    80px 100px 0 0 rgba(255,255,255,0.1),
+    250px 50px 0 0 rgba(255,255,255,0.08),
+    360px 240px 0 1px rgba(255,255,255,0.12),
+    480px 160px 0 0 rgba(255,255,255,0.1),
+    600px 290px 0 0 rgba(255,255,255,0.08),
+    180px 200px 0 1px rgba(255,255,255,0.1),
+    420px 40px 0 0 rgba(255,255,255,0.08),
+    650px 180px 0 1px rgba(255,255,255,0.1),
+    100px 360px 0 0 rgba(255,255,255,0.08),
+    560px 320px 0 0 rgba(255,255,255,0.06);
+}
+
+.landing-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 44px 40px 40px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  position: relative;
+  animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.landing-card:hover {
+  box-shadow: 0 16px 56px rgba(100, 20, 20, 0.1);
+  transition: box-shadow 0.3s;
+}
+.landing-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 24px; right: 24px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--red), var(--gold), transparent);
+  border-radius: 0 0 3px 3px;
+}
+
+.landing-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.landing-card .sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.form-group { margin-bottom: 18px; }
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.form-group label::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 15px 18px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text);
+  background: #FFFCFA;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--red);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.06);
+}
+
+.form-group input::placeholder { color: #CC9999; }
+
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1.5l6 6 6-6' stroke='%23CC0000' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+}
+
+.btn-start {
+  width: 100%;
+  padding: 17px;
+  background: var(--gradient);
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  transition: transform 0.15s, box-shadow 0.25s;
+  animation: btn-pulse 2.5s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+.btn-start::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  background-size: 200% 200%;
+  animation: hero-shift 3s ease-in-out infinite;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(204, 0, 0, 0.35);
+}
+
+.btn-start:active { transform: scale(0.97); }
+
+/* ===== SURVEY ===== */
+.survey-wrap { display: none; }
+
+.survey-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* ===== SURVEY TAGLINE ===== */
+.survey-tagline {
+  text-align: center;
+  padding: 14px 0 8px;
+  margin-bottom: 4px;
+  min-height: 52px;
+  position: relative;
+}
+.survey-tagline .st-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.3;
+  background: linear-gradient(135deg, var(--red), #B30000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0 4px;
+}
+.survey-tagline .st-text.fading {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  background: var(--white);
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-track {
+  flex: 1;
+  background: var(--cream-dark);
+  border-radius: 20px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red-dark), var(--red-light));
+  border-radius: 20px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: prog-glow 1.6s ease-in-out infinite;
+}
+
+.progress-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-light);
+  white-space: nowrap;
+  min-width: 65px;
+  text-align: right;
+}
+
+.question-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 36px 36px 32px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.question-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream);
+  padding: 5px 14px 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.question-badge .num {
+  background: var(--red);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+.question-badge .section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.3px;
+}
+
+.question-text {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 28px;
+  color: var(--text);
+  padding-right: 12px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  background: var(--white);
+  user-select: none;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.3s, transform 0.2s;
+  animation: opt-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.option:hover {
+  border-color: var(--red-light);
+  background: #FFF7F5;
+  transform: translateX(5px);
+  box-shadow: 0 2px 12px rgba(204,0,0,0.04);
+}
+
+.option.selected {
+  border-color: var(--red);
+  background: linear-gradient(135deg, #FFF5F2, #FFF0F0);
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.06), 0 4px 20px rgba(204, 0, 0, 0.08);
+  transform: scale(1.01);
+}
+
+.option .radio {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 2px solid #D4B0B0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  margin-top: 1px;
+  background: #FFF8F8;
+}
+.option:hover .radio {
+  border-color: var(--red-light);
+  background: #FFF0F0;
+}
+.option.selected .radio {
+  border-color: var(--red);
+  background: var(--red);
+  animation: rad-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.option.selected .radio::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--white);
+  border-radius: 50%;
+  animation: dot-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+.option .label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  gap: 12px;
+}
+
+.btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.2px;
+  transition: transform 0.12s, box-shadow 0.25s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active { transform: scale(0.93); }
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-prev { background: #F5E8E8; color: var(--text); }
+.btn-prev:hover { background: #F0DCDC; }
+
+.btn-next {
+  background: var(--red);
+  color: var(--white);
+  margin-left: auto;
+}
+.btn-next:hover:not(:disabled) { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(204,0,0,0.3); }
+.btn-next:active:not(:disabled) { transform: scale(0.95) !important; }
+
+.btn-submit-exam {
+  background: var(--gradient);
+  color: var(--white);
+  margin-left: auto;
+  box-shadow: 0 4px 16px rgba(204,0,0,0.25);
+}
+.btn-submit-exam:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(204, 0, 0, 0.35);
+}
+.btn-submit-exam:active:not(:disabled) { transform: scale(0.95) !important; }
+
+.btn-skip {
+  background: transparent;
+  color: var(--text-light);
+  border: 1.5px dashed #CC9999;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s;
+  margin-top: 6px;
+  margin-left: auto;
+}
+.btn-skip:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: #FFF5F5;
+  transform: translateY(-1px);
+}
+
+.skip-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.btn-exit {
+  background: transparent;
+  border: 1px solid #E0C8C8;
+  color: #997A7A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.2s;
+  margin-left: 8px;
+}
+.btn-exit:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: #FFF5F2;
+  transform: translateY(-1px);
+}
+.btn-exit:active { transform: scale(0.95); }
+
+.hidden { display: none !important; }
+
+/* ===== RESULTS ===== */
+.results-card {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 44px 32px 36px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.results-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 30px;
+  right: 30px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--gold), var(--red), var(--gold));
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.results-card .score-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cream), var(--cream-dark));
+  margin-bottom: 16px;
+  border: 3px solid var(--red);
+  position: relative;
+}
+
+.results-card .score-hero::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(204, 0, 0, 0.2);
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.3; }
+}
+
+.results-card .score-hero .big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.results-card .score-hero .big .ms-num {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.results-card .score-hero .big .ms-out {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.2px;
+  margin-top: 3px;
+  line-height: 1;
+}
+
+.results-card .score-label {
+  font-size: 18px;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.results-card .candidate-info {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.section-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto 0;
+  max-width: 550px;
+}
+
+.s-break {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 14px 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 140px;
+  animation: card-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.s-break:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(204,0,0,0.1); }
+
+.s-break .sb-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.s-break .sb-score {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--red);
+  margin-top: 2px;
+}
+
+.s-break .sb-score .sb-total {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-light);
+  opacity: 0.7;
+  margin-left: 2px;
+}
+
+@keyframes talent-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(204,0,0,0.3), 0 0 20px rgba(204,0,0,0.1); border-color: var(--red); }
+  50% { box-shadow: 0 0 16px rgba(204,0,0,0.6), 0 0 40px rgba(204,0,0,0.25), 0 0 60px rgba(204,0,0,0.1); border-color: #FF4444; }
+}
+@keyframes star-pop {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.4) rotate(20deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes talent-shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes dopamine-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.s-break-top {
+  background: linear-gradient(135deg, #FFF0F0, #FFE0E0) !important;
+  border: 2px solid var(--red);
+  position: relative;
+  animation: talent-glow 1.8s ease-in-out infinite, dopamine-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+.s-break-top::after {
+  content: '★';
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  font-size: 18px;
+  color: var(--red);
+  animation: star-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both;
+  filter: drop-shadow(0 0 4px rgba(204,0,0,0.5));
+  text-shadow: 0 0 8px rgba(204,0,0,0.4);
+}
+.s-break-top .sb-score {
+  color: #CC0000;
+  text-shadow: 0 0 12px rgba(204,0,0,0.2);
+}
+
+.talent-label {
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 6px;
+  background: linear-gradient(90deg, var(--red), #FF6666, var(--red), #FF6666, var(--red));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: dopamine-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both, talent-shine 3s linear infinite 0.5s;
+}
+
+.results-message {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--cream);
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: left;
+  border-left: 4px solid var(--red);
+}
+
+.results-message strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: var(--red);
+}
+
+.btn-restart {
+  margin-top: 24px;
+  background: var(--red);
+  color: var(--white);
+  padding: 15px 40px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  transition: transform 0.12s, box-shadow 0.2s, background 0.2s;
+  margin-right: 10px;
+  box-shadow: 0 4px 16px rgba(204,0,0,0.25);
+}
+
+.btn-restart:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(204, 0, 0, 0.35);
+}
+
+.btn-restart:active { transform: scale(0.96); }
+
+.btn-end {
+  margin-top: 24px;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 14px 36px;
+  border: 2px solid #E0C8C8;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.12s, box-shadow 0.2s, border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.btn-end:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--cream);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(204,0,0,0.08);
+}
+
+.btn-end:active { transform: scale(0.96); }
+
+/* ===== TRANSITIONS ===== */
+.question-enter {
+  animation: questionSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes questionSlide {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.results-enter {
+  animation: resultsRise 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes resultsRise {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.celebration-text {
+  font-size: 32px;
+  margin-top: 8px;
+  animation: celebBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes celebBounce {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.score-pulse {
+  animation: scorePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scorePop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== IDLE DOPAMINE ANIMATIONS ===== */
+@keyframes hero-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes hero-drift {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
+@keyframes float-up {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+}
+@keyframes float-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* ===== DOPAMINE MICRO-ANIMATIONS ===== */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes opt-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes rad-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+@keyframes dot-pop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+@keyframes prog-glow {
+  0%, 100% { box-shadow: 0 0 6px rgba(204,0,0,0.4), 0 0 12px rgba(204,0,0,0.15); transform: scale(1); }
+  50% { box-shadow: 0 0 14px rgba(204,0,0,0.7), 0 0 28px rgba(204,0,0,0.25); transform: scale(1.2); }
+}
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(204,0,0,0.15); }
+  50% { box-shadow: 0 4px 28px rgba(204,0,0,0.3), 0 0 36px rgba(204,0,0,0.06); }
+}
+@keyframes card-pop {
+  0% { opacity: 0; transform: scale(0.92); }
+  60% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+/* ===== CONFETTI ===== */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media (max-width: 640px) {
+  .header-inner { padding: 0 14px; height: 64px; }
+  .header-left { padding: 5px 12px 5px 10px; gap: 10px; }
+  .header-left .logo-img { height: 38px; }
+  .header-left .brand-sub { display: none; }
+  .header-right a { font-size: 11px; padding: 4px 10px; }
+  .btn-apply { padding: 5px 12px !important; font-size: 11px !important; }
+  .header-right span { font-size: 11px !important; }
+  .hero { min-height: 260px; padding: 36px 16px 32px; }
+  .hero h1 { font-size: 30px; }
+  .hero p { font-size: 14px; }
+  .hero .hero-badge { font-size: 9px; padding: 4px 14px; }
+  .landing-section { margin: -50px auto 32px; padding: 0 12px; }
+  .landing-card { padding: 32px 20px 28px; border-radius: 20px; }
+  .landing-card h2 { font-size: 22px; }
+  .landing-card .sub { font-size: 13px; margin-bottom: 22px; }
+  .form-group label { font-size: 11px; }
+  .form-group input, .form-group select { padding: 13px 14px; font-size: 14px; border-radius: 12px; }
+  .btn-start { padding: 15px; font-size: 15px; border-radius: 12px; }
+  .question-card { padding: 24px 16px 20px; border-radius: 20px; }
+  .survey-tagline { min-height: 42px; padding: 10px 0 6px; }
+  .survey-tagline .st-text { font-size: 18px; }
+  .question-text { font-size: 17px; }
+  .question-badge { padding: 4px 12px 4px 10px; }
+  .question-badge .num { font-size: 10px; padding: 2px 8px; }
+  .question-badge .section-label { font-size: 10px; }
+  .option { padding: 13px 14px; border-radius: 14px; gap: 12px; }
+  .option .radio { width: 20px; height: 20px; min-width: 20px; }
+  .option .label { font-size: 14px; }
+  .nav-buttons { flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .btn { padding: 12px 20px; font-size: 13px; border-radius: 12px; }
+  .btn-skip { padding: 6px 16px; font-size: 11px; }
+  .survey-container { padding: 16px 12px 36px; }
+  .progress-section { padding: 8px 12px; border-radius: 14px; }
+  .results-card { padding: 32px 16px; border-radius: 24px; }
+  .results-card .score-hero { width: 96px; height: 96px; }
+  .results-card .score-hero .big .ms-num { font-size: 34px; }
+  .results-card .score-hero .big .ms-out { font-size: 10px; }
+  .results-card .score-label { font-size: 16px; }
+  .section-breakdown { gap: 8px; }
+  .s-break { width: 120px; padding: 12px 8px; border-radius: 12px; }
+  .s-break .sb-label { font-size: 10px; }
+  .s-break .sb-score { font-size: 22px; }
+  .s-break .sb-score .sb-total { font-size: 14px; }
+  .results-message { padding: 16px 18px; font-size: 13px; }
+  .btn-restart, .btn-end { padding: 13px 28px; font-size: 14px; margin-top: 20px; border-radius: 12px; }
+  .modal-box { padding: 36px 20px 28px; border-radius: 28px; }
+  .modal-icon { font-size: 40px; }
+  .modal-score .ms-num { font-size: 34px; }
+  .modal-score .ms-out { font-size: 10px; }
+  .modal-label { font-size: 13px; }
+  .modal-remark { padding: 14px 16px; font-size: 13px; }
+  .modal-btn { padding: 11px 28px; font-size: 13px; border-radius: 12px; }
+  .score-ring { width: 100px; height: 100px; }
+  .score-ring-inner { width: 84px; height: 84px; }
+}
+
+@media (max-width: 420px) {
+  .header-inner { height: 58px; }
+  .header-left .logo-img { height: 32px; }
+  .header-left .brand-top { font-size: 13px; }
+  .hero { min-height: 220px; padding: 28px 14px 24px; }
+  .hero h1 { font-size: 24px; }
+  .survey-tagline { min-height: 36px; padding: 8px 0 4px; }
+  .survey-tagline .st-text { font-size: 15px; }
+  .hero .hero-badge { font-size: 8px; padding: 3px 12px; }
+  .landing-card { padding: 24px 14px 22px; }
+  .landing-card h2 { font-size: 19px; }
+  .question-card { padding: 20px 12px 16px; }
+  .question-text { font-size: 15px; }
+  .option { padding: 11px 12px; border-radius: 12px; }
+  .option .label { font-size: 13px; }
+  .btn { padding: 10px 16px; font-size: 12px; }
+  .s-break { width: 100px; padding: 10px 6px; }
+  .s-break .sb-label { font-size: 9px; }
+  .s-break .sb-score { font-size: 18px; }
+  .jumble-text { font-size: 20px; }
+  .jumble-spinner span { width: 10px; height: 10px; gap: 8px; }
+  .jumble-box { padding: 0 12px; }
+}
+
+/* ===== RESULT POPUP MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  padding: 24px;
+}
+
+.modal-overlay.show {
+  display: flex;
+  animation: overlayIn 0.3s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  background: var(--white);
+  border-radius: 32px;
+  padding: 48px 40px 36px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 20px 60px rgba(100, 20, 20, 0.15);
+  position: relative;
+  overflow: visible;
+}
+
+.modal-box::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 20px;
+  right: 20px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--gold), var(--red), var(--gold));
+  border-radius: 6px;
+}
+
+.modal-box.pop-in {
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: inline-block;
+  animation: celebBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.modal-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-score .ms-num {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.modal-score .ms-out {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.2px;
+  margin-top: 3px;
+  line-height: 1;
+}
+
+.modal-label {
+  font-size: 14px;
+  font-weight: 800;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+.modal-name {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+
+.modal-remark {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: left;
+  border-left: 3px solid var(--red);
+}
+
+.modal-btn {
+  margin-top: 18px;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 13px 36px;
+  border: 2px solid #E0C8C8;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  transition: transform 0.12s, box-shadow 0.2s, border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.modal-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--cream);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(204,0,0,0.08);
+}
+
+.modal-btn:active { transform: scale(0.96); }
+
+.score-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(var(--red) var(--pct, 0%), var(--cream-dark) 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  position: relative;
+}
+
+.score-ring-inner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ===== JUMBLE LOADING OVERLAY ===== */
+.jumble-overlay {
+  position: fixed;
+  inset: 0;
+  background: #1A0000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 24px;
+}
+.jumble-overlay.show {
+  display: flex;
+  animation: overlayIn 0.3s ease;
+}
+
+.jumble-box {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.jumble-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.jumble-spinner span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: jumbleBounce 1.2s ease-in-out infinite;
+}
+.jumble-spinner span:nth-child(2) { animation-delay: 0.15s; background: #E85C5C; }
+.jumble-spinner span:nth-child(3) { animation-delay: 0.3s; background: #F08080; }
+.jumble-spinner span:nth-child(4) { animation-delay: 0.45s; background: #FF9999; }
+
+@keyframes jumbleBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+  40% { transform: scale(1.3); opacity: 1; }
+}
+
+.jumble-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: -0.3px;
+}
+.jumble-dots span {
+  animation: jumbleDot 1.4s ease-in-out infinite;
+}
+.jumble-dots span:nth-child(2) { animation-delay: 0.2s; }
+.jumble-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes jumbleDot {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+}
+
+.jumble-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.jumble-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--red), #FF9999, var(--red), #FF9999);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: jumbleSlide 4.5s linear forwards, shimmer 1.5s linear infinite;
+}
+@keyframes jumbleSlide {
+  0% { width: 0%; }
+  20% { width: 15%; }
+  40% { width: 40%; }
+  60% { width: 65%; }
+  80% { width: 85%; }
+  100% { width: 100%; }
+}
+
+.jumble-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+
+/* ===== CREDIT FOOTER ===== */
+.nomin-credit {
+  position: fixed;
+  bottom: 16px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #996666;
+  opacity: 0.8;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.nomin-credit svg {
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+  color: #3D5A80;
+}
+.nomin-credit:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<header class="main-header">
+  <div class="header-inner">
+    <a href="#" class="header-left" onclick="resetExam(); return false;">
+      <img src="https://gurukul.org/wp-content/uploads/2023/09/head-logo-1.svg" alt="Gurukul" class="logo-img">
+      <div class="brand">
+        <span class="brand-top">Gurukul Arts</span>
+        <span class="brand-sub">Foundation</span>
+      </div>
+    </a>
+    <div class="header-right">
+      <span style="font-size:12px;font-weight:600;color:var(--text-light);">Arts Entrance Exam</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-ambient" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Arts Entrance Exam</div>
+    <h1>Where Creativity<br>Meets Purpose</h1>
+    <p>A 32-question exam across photography, videography, editing, judgment &amp; integrity.</p>
+  </div>
+</section>
+
+<div id="landingSection" class="landing-section">
+  <div class="landing-card">
+    <h2>Before you begin</h2>
+    <p class="sub">Answer honestly. There is no benefit in guessing — this exam is designed to catch that too.</p>
+    <div class="form-group">
+      <label for="candidateName">Your Name</label>
+      <input type="text" id="candidateName" placeholder="Enter your full name" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label for="candidateInterest">What are you most interested in?</label>
+      <select id="candidateInterest">
+        <option value="">Select your primary interest</option>
+        <option value="Photography">Photography</option>
+        <option value="Videography">Videography</option>
+        <option value="Editing & Post-Production">Editing & Post-Production</option>
+        <option value="Content Creation">Content Creation</option>
+        <option value="Multiple / Everything">Multiple / Everything</option>
+        <option value="Not sure yet — want to learn">Not sure yet — want to learn</option>
+      </select>
+    </div>
+    <button class="btn-start" id="btnStart">Start Exam →</button>
+  </div>
+</div>
+
+<!-- JUMBLE LOADING OVERLAY -->
+<div class="jumble-overlay" id="jumbleOverlay">
+  <div class="jumble-box">
+    <div class="jumble-spinner">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="jumble-text">
+      <span id="jumbleLabel">Shuffling questions</span>
+      <span class="jumble-dots"><span>.</span><span>.</span><span>.</span></span>
+    </div>
+    <div class="jumble-bar-track">
+      <div class="jumble-bar-fill" id="jumbleBar"></div>
+    </div>
+    <div class="jumble-sub">Giving every question a fair spin</div>
+  </div>
+</div>
+
+<div class="survey-wrap" id="surveyWrap">
+  <div class="survey-container">
+    <div class="survey-tagline" id="surveyTagline">
+      <span class="st-text" id="stText">Where Creativity Meets Purpose</span>
+    </div>
+    <div class="progress-section">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-count" id="progressCount">0 / 32</div>
+      <button class="btn-exit" id="btnExit" title="Exit to registration">Exit</button>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <div class="question-badge">
+        <span class="num" id="qNum">Q1</span>
+        <span class="section-label" id="qSection">Photography</span>
+      </div>
+      <div class="question-text" id="qText"></div>
+      <div class="options" id="options"></div>
+      <div class="skip-row">
+        <button class="btn-skip hidden" id="btnSkip">Skip →</button>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-prev hidden" id="btnPrev">← Back</button>
+        <button class="btn btn-next" id="btnNext">Next →</button>
+        <button class="btn btn-submit-exam hidden" id="btnSubmit">Submit ✓</button>
+      </div>
+    </div>
+
+    <div id="resultsWrap" class="hidden">
+      <div class="results-card results-enter">
+        <div class="score-hero score-pulse">
+          <div class="big" id="totalScore"><span class="ms-num">0</span><span class="ms-out">out of 32</span></div>
+        </div>
+        <div class="score-label" id="scoreLabel"></div>
+        <div class="candidate-info" id="candidateInfo"></div>
+        <div id="celebrationEmoji" class="celebration-text"></div>
+        <div class="section-breakdown" id="sectionBreakdown"></div>
+        <div class="results-message" id="resultsMessage"></div>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+          <button class="btn-restart" id="btnRestart">Take Again</button>
+          <button class="btn-end" id="btnEnd">End →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+
+<div class="modal-overlay" id="resultModal">
+    <div class="modal-box pop-in">
+      <div class="modal-icon" id="modalIcon">🏆</div>
+      <div class="score-ring" id="scoreRing">
+        <div class="score-ring-inner">
+          <div class="modal-score" id="modalScore"><span class="ms-num">0</span><span class="ms-out">out of 32</span></div>
+          <div class="modal-label" id="modalLabel">Exceptional</div>
+        </div>
+      </div>
+    <div class="modal-name" id="modalName"></div>
+    <div class="modal-remark" id="modalRemark"></div>
+    <div class="section-breakdown" id="modalBreakdown" style="margin-top:16px;"></div>
+    <button class="modal-btn" id="modalBtn">End →</button>
+  </div>
+</div>
+
+<div class="nomin-credit">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200" fill="currentColor">
+    <circle cx="0" cy="0" r="88" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 5" opacity="0.5"/>
+    <g transform="rotate(0)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z"/></g>
+    <g transform="rotate(45)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z"/></g>
+    <g transform="rotate(90)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z"/></g>
+    <g transform="rotate(135)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z"/></g>
+    <g transform="rotate(180)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z"/></g>
+    <g transform="rotate(225)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z"/></g>
+    <g transform="rotate(270)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z"/></g>
+    <g transform="rotate(315)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z"/></g>
+    <circle cx="0" cy="0" r="14" fill="#FFF"/>
+    <circle cx="0" cy="0" r="6"/>
+  </svg>
+  <span>Design by Nomin</span>
+</div>
+
+<script>
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+const rawQuestions = [
+  { q: 'What does "exposure" mean in photography, in simple terms?', o: ['How famous the photographer is','How much light reaches the camera to make the picture bright or dark','How many photos you can take in a day','The price of the camera'], a: 1 },
+  { q: "You're taking a photo of a person outdoors and the sun is directly behind them. What usually happens?", o: ['The photo becomes perfectly lit',"The person turns into a dark shadow unless you do it on purpose",'Nothing changes','The camera automatically fixes it'], a: 1 },
+  { q: 'What is the best time of day for soft, nice outdoor light?', o: ['12 PM (noon)','Early morning or evening, near sunrise/sunset','Midnight',"It doesn't matter, all light is the same"], a: 1 },
+  { q: 'A photo comes out blurry. What is the MOST likely reason?', o: ['The camera is too expensive','The photographer moved, or the focus was wrong','The subject was too happy','The memory card is full'], a: 1 },
+  { q: 'What is the "rule of thirds"?', o: ['A rule that says take only 3 photos','A way of placing your subject off-center using an imaginary grid, to make the photo look more natural','A rule about camera price','A software setting'], a: 1 },
+  { q: "You're shooting a group of 10 people for an event. What's the smartest thing to do?", o: ['Take just one photo and move on',"Take a few extra shots and quickly check if everyone's eyes are open before leaving",'Ask everyone to look serious only','Let people arrange themselves however they want without guidance'], a: 1 },
+  { q: 'What does ISO roughly control in a camera?', o: ["The camera's Wi-Fi",'How sensitive the camera is to light — useful in dark places but can make photos look not clear','The zoom level','The battery life'], a: 1 },
+  { q: 'What is a gimbal mainly used for?', o: ['Recording audio',"Keeping the camera steady while moving, so footage doesn't shake",'Charging the camera','Storing video files'], a: 1 },
+  { q: 'Why do videographers often record a few extra seconds before and after the important action?', o: ['To waste battery',"So editors have room to cut smoothly without losing the important part","It's not necessary, it's just a habit",'To make the file bigger'], a: 1 },
+  { q: 'What is "B-roll"?', o: ['The second camera brand','Extra supporting footage (like background shots) used alongside the main footage','A broken video file','A type of gimbal'], a: 1 },
+  { q: 'Why is audio quality important in a video, even when the visuals look great?', o: ["It isn't important, only visuals matter",'Because bad audio makes people stop watching even if the video looks beautiful','Audio can be fixed anytime with no effort','Only music matters, not voice'], a: 1 },
+  { q: 'What should you always check BEFORE starting a shoot?', o: ['Nothing, just start filming','Battery level, storage space, and focus','Only the lens cap',"The client's phone number"], a: 1 },
+  { q: "You're filming an interview in a noisy place. What's the smart move?", o: ["Ignore it, background noise adds character",'Use a separate mic or move to a quieter spot','Shout the questions louder','Stop filming completely'], a: 1 },
+  { q: "Where should you generally place a person's face in an interview shot for a good frame?", o: ['Exactly at the bottom edge','Slightly off-center, following the rule of thirds',"It doesn't matter at all",'Always in the top corner'], a: 1 },
+  { q: 'Which of these is mainly used for video editing?', o: ['Adobe Premiere Pro','Microsoft Excel','Google Maps','WhatsApp'], a: 0 },
+  { q: 'What is "color grading" in editing?', o: ['Giving marks to a video','Adjusting the colors and mood of a video to make it look a certain way','Renaming a file','Adding subtitles'], a: 1 },
+  { q: 'DaVinci Resolve is mainly known for being strong at:', o: ['Sending emails','Color correction and video editing','Making spreadsheets','Editing PDFs'], a: 1 },
+  { q: 'What is a "cut" in video editing?', o: ['Damaging the camera','The point where one shot ends and another begins','Deleting the whole project','A type of gimbal movement'], a: 1 },
+  { q: 'Why should you regularly back up your project files while editing?', o: ["It's not necessary",'Because your work could be lost if the file gets deleted, damaged, or the software crashes','Only professionals need to do this','Backups slow down the computer, so avoid them'], a: 1 },
+  { q: 'What is Photoshop mainly used for?', o: ['Editing and improving photos/images','Editing videos only','Recording audio','Managing a calendar'], a: 0 },
+  { q: "If a video feels boring in the middle section, what's a common editing fix?", o: ['Delete the entire video','Trim slow parts, add music or pacing changes to keep it interesting','Make it longer','Add more silence'], a: 1 },
+  { q: 'A client calls you last minute and changes the shoot time. What do you do?', o: ['Ignore the call',"Calmly adjust your plan if possible, and let them know clearly if it's not possible",'Get angry at the client',"Cancel the shoot without telling anyone"], a: 1 },
+  { q: "You realize the camera battery wasn't charged the night before a shoot. What should you have done differently?", o: ["Nothing, it's not your responsibility",'Checked and charged all equipment the night before as a habit','Blamed the camera',"Borrowed a friend's phone instead"], a: 1 },
+  { q: "You're setting up for a shot and a great unplanned moment happens right in front of you. What do you do?", o: ['Ignore it and finish your setup first','Quickly pick up whatever camera/phone is fastest to take the shot, then continue setup','Ask the moment to happen again later','Only shoot things that are planned'], a: 1 },
+  { q: "A client says they're unhappy with the photos/videos you delivered. What's the best first response?", o: ["Argue that they don't understand good work",'Listen calmly, understand what specifically they don\'t like, and see what can be improved','Ignore the feedback','Blame the equipment'], a: 1 },
+  { q: "You're running 15 minutes late to a shoot. What's the smartest immediate action?", o: ['Say nothing and just show up late','Message ahead and let them know your updated arrival time','Cancel the whole shoot','Take a longer route to avoid embarrassment'], a: 1 },
+  { q: "During an event you're covering, something unexpected and slightly messy happens nearby (not dangerous, just distracting). What's the smart reaction?", o: ['Stop everything and go watch','Stay calm, keep doing your job, and only react if it is connected to what you\'re covering','Panic and leave','Start filming it regardless of relevance to the assignment'], a: 1 },
+  { q: 'You finish your assigned work early and still have the gimbal and camera with you for the rest of the day. What do you do?', o: ["Use the free time to quietly shoot personal content since no one is watching",'Message and ask if it\'s okay to use the gear for a personal project, or simply return it if unsure',"Keep it for the day without saying anything, you'll return it in the evening anyway","Lend it to a friend since you're not using it"], a: 1 },
+  { q: "You've been given access to Premiere Pro, After Effects, and Photoshop strictly for foundation projects. You want to edit a personal reel using them. What's the right approach?", o: ["Just do it quietly, it's a small thing and no one will notice",'Ask directly if personal use is allowed, and follow whatever the answer is',"Do it and mention it only if someone asks","Assume it's fine since you weren't told not to"], a: 1 },
+  { q: "You don't know how to use a certain effect or transition in the editing software. What's your best move?", o: ["Avoid using it and pretend you meant to keep it simple",'Search for a tutorial, ask someone, and try to learn it properly',"Say it's not possible to do",'Wait for someone else to do it for you every time'], a: 1 },
+  { q: 'You accidentally deleted an important client file while working. What do you do?', o: ['Stay quiet and hope no one notices','Immediately inform the relevant person and try to recover or fix it',"Blame a technical issue without mentioning it was you",'Delete the backup too so there\'s no proof'], a: 1 },
+  { q: "You get a chance at a great personal opportunity (like a paid personal shoot) using the foundation's equipment during your off hours. What's the right first step?", o: ["Just take the opportunity, it's your own time",'Ask permission first, since the equipment belongs to the foundation, not you',"Do it without asking, but return the gear clean afterward","Do it and only mention it if it goes really well"], a: 1 }
+];
+
+const labels = ['A', 'B', 'C', 'D'];
+const sections = [
+  { start: 0, end: 6, name: 'Photography' },
+  { start: 7, end: 13, name: 'Videography' },
+  { start: 14, end: 20, name: 'Editing' },
+  { start: 21, end: 26, name: 'Judgment' },
+  { start: 27, end: 31, name: 'Integrity' }
+];
+
+let questions = [];
+let current = 0;
+let answers = [];
+let candidateName = '';
+let candidateInterest = '';
+
+const landing = document.getElementById('landingSection');
+const surveyWrap = document.getElementById('surveyWrap');
+const qCard = document.getElementById('questionCard');
+const qNum = document.getElementById('qNum');
+const qSection = document.getElementById('qSection');
+const qText = document.getElementById('qText');
+const optionsEl = document.getElementById('options');
+const btnPrev = document.getElementById('btnPrev');
+const btnNext = document.getElementById('btnNext');
+const btnSubmit = document.getElementById('btnSubmit');
+const progressFill = document.getElementById('progressFill');
+const progressCount = document.getElementById('progressCount');
+
+const LS = 'ga_';
+
+function saveState() {
+  try {
+    localStorage.setItem(LS + 'questions', JSON.stringify(questions));
+    localStorage.setItem(LS + 'current', current);
+    localStorage.setItem(LS + 'answers', JSON.stringify(answers));
+    localStorage.setItem(LS + 'name', candidateName);
+    localStorage.setItem(LS + 'interest', candidateInterest);
+    let ui = 'landing';
+    if (surveyWrap.style.display === 'block') ui = document.getElementById('resultsWrap').style.display === 'block' ? 'results' : 'survey';
+    localStorage.setItem(LS + 'ui', ui);
+  } catch(e) {}
+}
+
+function clearState() {
+  try {
+    ['questions','current','answers','name','interest','ui'].forEach(k => localStorage.removeItem(LS + k));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(LS + 'questions');
+    if (!saved) return false;
+    questions = JSON.parse(saved);
+    current = parseInt(localStorage.getItem(LS + 'current')) || 0;
+    answers = JSON.parse(localStorage.getItem(LS + 'answers')) || new Array(questions.length).fill(null);
+    candidateName = localStorage.getItem(LS + 'name') || '';
+    candidateInterest = localStorage.getItem(LS + 'interest') || '';
+    return true;
+  } catch(e) { return false; }
+}
+
+function initQuestions() {
+  if (loadState()) {
+    const ui = localStorage.getItem(LS + 'ui');
+    if (ui === 'survey') {
+      landing.style.display = 'none';
+      surveyWrap.style.display = 'block';
+      startTaglineRotation();
+      render();
+    } else if (ui === 'results') {
+      landing.style.display = 'none';
+      surveyWrap.style.display = 'block';
+      startTaglineRotation();
+      document.getElementById('questionCard').style.display = 'none';
+      document.getElementById('resultsWrap').style.display = 'block';
+      restoreResults();
+    }
+    return;
+  }
+  questions = rawQuestions.map(q => ({ ...q, o: [...q.o] }));
+  shuffle(questions);
+  questions.forEach(q => {
+    const correctText = q.o[q.a];
+    shuffle(q.o);
+    q.a = q.o.indexOf(correctText);
+  });
+  answers = new Array(questions.length).fill(null);
+  saveState();
+}
+initQuestions();
+
+const taglines = [
+  "Where Creativity Meets Purpose",
+  "Every Frame Tells a Story",
+  "Crafting Visions, Building Futures",
+  "Where Passion Finds Its Lens",
+  "Shape the Stories of Tomorrow",
+  "The Lens Never Lies",
+  "Light. Shadow. Story.",
+  "Where Vision Takes Form",
+  "More Than Just a Picture",
+  "The Art of Seeing",
+  "Stories Waiting to Be Captured",
+  "A Thousand Words in Every Frame",
+  "Where Composition Meets Intention",
+  "The Eye Behind the Camera",
+  "Framing the Extraordinary",
+  "Where Light Dances with Shadow",
+  "Moments That Matter",
+  "From Concept to Creation",
+  "Editing Is Rewriting the Light",
+  "The Sequel Starts Here",
+  "Every Cut Tells a Story",
+  "From Raw to Remarkable",
+  "Where Sound Meets Silence",
+  "Color. Mood. Emotion.",
+  "The Rhythm of the Edit",
+  "Polishing the Rough Cut",
+  "Where Story Finds Its Pace",
+  "Details Make the Difference",
+  "Precision in Every Pixel",
+  "The Art of the Second Look",
+  "Where Truth Meets Perspective",
+  "Judgment Shapes the Story",
+  "Integrity Is the Invisible Frame",
+  "What You Choose Matters",
+  "Honesty Is the Best Aperture",
+  "Behind Every Great Shot Is a Choice",
+  "The Discipline of the Craft",
+  "Where Ethics Frame the Picture",
+  "The Story Behind the Story",
+  "Capturing Not Just Moments, but Meaning",
+  "Where Authenticity Becomes Art",
+  "The Frame Is Just the Beginning",
+  "Every Project Starts with a Question",
+  "Where Hobby Becomes Craft",
+  "The Bridge Between Idea and Image",
+  "Composition Is a Language",
+  "Patience Develops the Picture",
+  "Observation Is the First Lens",
+  "Where Intuition Meets Technique",
+  "Inspiration Lives in the Details",
+  "The Best Camera Is the One You Have",
+  "Creativity Loves Constraints",
+  "There Is Always Another Angle",
+  "The Magic Is in the Process",
+  "Where Talent Meets Tenacity",
+  "Growth Happens Outside the Frame",
+  "Make It. Break It. Make It Better.",
+  "The Edit Is Never Really Done",
+  "Vision Without Action Is Just a Dream",
+  "Every Artist Was First an Amateur",
+  "The Studio Is Everywhere",
+  "Where Curiosity Drives the Craft",
+  "Imperfection Makes It Real",
+  "The Story Chooses the Storyteller",
+  "Find the Beauty in the Ordinary",
+  "Your Voice Is Your Style",
+  "Nothing Happens in the Darkroom by Accident",
+  "The Rushes Hold the Magic",
+  "Post-Production Is Where It Comes Alive",
+  "Trust Your Creative Instinct",
+  "Serve the Story, Not the Ego",
+  "The Work You Do When Nobody's Watching"
+];
+let taglineIdx = 0, taglineInterval = null;
+function startTaglineRotation() {
+  const el = document.getElementById('stText');
+  if (!el) return;
+  if (taglineInterval) clearInterval(taglineInterval);
+  el.classList.remove('fading');
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+  taglineIdx = Math.floor(Math.random() * taglines.length);
+  el.textContent = taglines[taglineIdx];
+  taglineInterval = setInterval(() => {
+    el.classList.add('fading');
+    setTimeout(() => {
+      taglineIdx = (taglineIdx + 1) % taglines.length;
+      el.textContent = taglines[taglineIdx];
+      el.classList.remove('fading');
+    }, 500);
+  }, 5000);
+}
+function stopTaglineRotation() {
+  if (taglineInterval) { clearInterval(taglineInterval); taglineInterval = null; }
+}
+
+document.getElementById('btnStart').addEventListener('click', startExam);
+document.getElementById('btnRestart').addEventListener('click', resetExam);
+document.getElementById('btnEnd').addEventListener('click', endExam);
+
+function startExam() {
+  const name = document.getElementById('candidateName').value.trim();
+  const interest = document.getElementById('candidateInterest').value;
+  if (!name) { const el = document.getElementById('candidateName'); el.focus(); el.style.borderColor = '#CC0000'; return; }
+  if (!interest) { const el = document.getElementById('candidateInterest'); el.focus(); el.style.borderColor = '#CC0000'; return; }
+  candidateName = name;
+  candidateInterest = interest;
+  saveState();
+  landing.style.display = 'none';
+  document.getElementById('jumbleOverlay').classList.add('show');
+  document.getElementById('jumbleBar').style.animation = 'none';
+  void document.getElementById('jumbleBar').offsetWidth;
+  document.getElementById('jumbleBar').style.animation = '';
+  setTimeout(() => {
+    document.getElementById('jumbleOverlay').classList.remove('show');
+    startTaglineRotation();
+    surveyWrap.style.display = 'block';
+    render();
+    setTimeout(() => {
+      document.getElementById('surveyWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }, 4500);
+}
+
+function exitToReg() {
+  stopTaglineRotation();
+  clearState();
+  landing.style.display = 'block';
+  surveyWrap.style.display = 'none';
+  document.getElementById('questionCard').style.display = 'block';
+  document.getElementById('resultsWrap').style.display = 'none';
+  const cn = document.getElementById('candidateName');
+  const ci = document.getElementById('candidateInterest');
+  cn.value = '';
+  ci.value = '';
+  cn.style.borderColor = '';
+  ci.style.borderColor = '';
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+  document.getElementById('resultModal').classList.remove('show');
+}
+
+function endExam() {
+  stopTaglineRotation();
+  clearState();
+  document.getElementById('resultModal').classList.remove('show');
+  document.getElementById('resultsWrap').style.display = 'none';
+  document.getElementById('questionCard').style.display = 'block';
+  landing.style.display = 'block';
+  surveyWrap.style.display = 'none';
+  const cn = document.getElementById('candidateName');
+  const ci = document.getElementById('candidateInterest');
+  cn.value = '';
+  ci.value = '';
+  cn.style.borderColor = '';
+  ci.style.borderColor = '';
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+}
+
+function resetExam() {
+  stopTaglineRotation();
+  clearState();
+  document.getElementById('resultModal').classList.remove('show');
+  questions = rawQuestions.map(q => ({ ...q, o: [...q.o] }));
+  shuffle(questions);
+  questions.forEach(q => {
+    const correctText = q.o[q.a];
+    shuffle(q.o);
+    q.a = q.o.indexOf(correctText);
+  });
+  answers = new Array(questions.length).fill(null);
+  current = 0;
+  saveState();
+  document.getElementById('resultsWrap').style.display = 'none';
+  document.getElementById('questionCard').style.display = 'block';
+  landing.style.display = 'block';
+  surveyWrap.style.display = 'none';
+  const cn = document.getElementById('candidateName');
+  const ci = document.getElementById('candidateInterest');
+  cn.value = '';
+  ci.value = '';
+  cn.style.borderColor = '';
+  ci.style.borderColor = '';
+}
+
+function getSectionName(idx) {
+  for (const s of sections) {
+    if (idx >= s.start && idx <= s.end) return s.name;
+  }
+  return '';
+}
+
+function render() {
+  const q = questions[current];
+  qNum.textContent = `Q${current + 1}`;
+  qSection.textContent = getSectionName(current);
+  qText.textContent = q.q;
+
+  optionsEl.innerHTML = '';
+  q.o.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (answers[current] === i ? ' selected' : '');
+    div.style.animationDelay = `${i * 0.06}s`;
+    div.innerHTML = `<div class="radio"></div><div class="label">${labels[i]}. ${opt}</div>`;
+    div.addEventListener('click', () => { select(i); });
+    optionsEl.appendChild(div);
+  });
+
+  btnPrev.classList.toggle('hidden', current === 0);
+  btnNext.classList.toggle('hidden', current === questions.length - 1);
+  btnSubmit.classList.toggle('hidden', current !== questions.length - 1);
+
+  const hasAnswer = answers[current] !== null;
+  btnNext.disabled = !hasAnswer;
+  btnSubmit.disabled = !hasAnswer;
+
+  const skipBtn = document.getElementById('btnSkip');
+  skipBtn.classList.toggle('hidden', current === questions.length - 1);
+  if (hasAnswer) skipBtn.classList.add('hidden');
+
+  const answered = answers.filter(a => a !== null).length;
+  progressFill.style.width = `${(answered / questions.length) * 100}%`;
+  progressCount.textContent = `${answered} / ${questions.length}`;
+
+  qCard.classList.remove('question-enter');
+  void qCard.offsetWidth;
+  qCard.classList.add('question-enter');
+}
+
+function select(idx) {
+  answers[current] = (answers[current] === idx) ? null : idx;
+  saveState();
+  const optEls = optionsEl.children;
+  for (let i = 0; i < optEls.length; i++) {
+    optEls[i].className = 'option' + (answers[current] === i ? ' selected' : '');
+  }
+
+  const hasAnswer = answers[current] !== null;
+  const atEnd = current === questions.length - 1;
+  btnNext.disabled = !hasAnswer;
+  btnSubmit.disabled = !hasAnswer;
+
+  const skipBtn = document.getElementById('btnSkip');
+  if (atEnd) { skipBtn.classList.add('hidden'); }
+  else { skipBtn.classList.toggle('hidden', hasAnswer); }
+
+  const answered = answers.filter(a => a !== null).length;
+  progressFill.style.width = `${(answered / questions.length) * 100}%`;
+  progressCount.textContent = `${answered} / ${questions.length}`;
+}
+
+btnPrev.addEventListener('click', () => { if (current > 0) { current--; render(); saveState(); } });
+btnNext.addEventListener('click', () => { if (current < questions.length - 1) { current++; render(); saveState(); } });
+btnSubmit.addEventListener('click', showResults);
+document.getElementById('btnSkip').addEventListener('click', () => {
+  if (current < questions.length - 1) { current++; render(); saveState(); }
+});
+document.getElementById('btnExit').addEventListener('click', exitToReg);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && surveyWrap.style.display === 'block' && document.getElementById('resultsWrap').style.display !== 'block') {
+    if (!btnNext.classList.contains('hidden') && !btnNext.disabled) btnNext.click();
+    else if (!btnSubmit.classList.contains('hidden') && !btnSubmit.disabled) btnSubmit.click();
+  }
+});
+
+const canvas = document.getElementById('confettiCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animFrame = null;
+
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+const confettiColors = ['#CC0000', '#E31E24', '#FF6666', '#FF9999', '#990000', '#FF3333', '#FFB3B3'];
+
+function burstConfetti(count) {
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 100,
+      y: canvas.height / 2 - 50,
+      vx: (Math.random() - 0.5) * 14,
+      vy: -Math.random() * 14 - 4,
+      w: Math.random() * 10 + 4,
+      h: Math.random() * 6 + 3,
+      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 10,
+      gravity: 0.25 + Math.random() * 0.15,
+      opacity: 1,
+      drift: (Math.random() - 0.5) * 0.5
+    });
+  }
+  if (!animFrame) animateConfetti();
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let alive = false;
+  for (const p of particles) {
+    p.x += p.vx + p.drift;
+    p.vy += p.gravity;
+    p.y += p.vy;
+    p.rot += p.rotSpeed;
+    p.opacity -= 0.003;
+    if (p.opacity <= 0) continue;
+    alive = true;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot * Math.PI / 180);
+    ctx.globalAlpha = Math.max(0, p.opacity);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    ctx.restore();
+  }
+  if (alive) {
+    animFrame = requestAnimationFrame(animateConfetti);
+  } else {
+    particles = [];
+    animFrame = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function animateScore(target) {
+  const el = document.getElementById('totalScore');
+  let currentScore = 0;
+  const step = Math.max(1, Math.floor(target / 25));
+  const interval = setInterval(() => {
+    currentScore += step;
+    if (currentScore >= target) {
+      currentScore = target;
+      clearInterval(interval);
+    }
+    el.innerHTML = `<span class="ms-num">${currentScore}</span><span class="ms-out">out of 32</span>`;
+  }, 30);
+}
+
+function animateModalScore(target, pctTarget) {
+  const el = document.getElementById('modalScore');
+  const ring = document.getElementById('scoreRing');
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 28));
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) { current = target; clearInterval(interval); }
+    el.innerHTML = `<span class="ms-num">${current}</span><span class="ms-out">out of 32</span>`;
+    ring.style.setProperty('--pct', `${Math.round((current / 32) * 100)}%`);
+  }, 30);
+}
+
+function showResults() {
+  const total = questions.length;
+  let correct = 0;
+  answers.forEach((ans, i) => { if (ans === questions[i].a) correct++; });
+
+  const modal = document.getElementById('resultModal');
+  const pct = Math.round((correct / total) * 100);
+
+  let label, emoji, remark;
+  if (pct >= 90) { label = 'Exceptional'; emoji = '🏆'; remark = 'Outstanding instincts and knowledge. You have a sharp understanding of the craft. Keep this energy — skill with integrity is rare.'; }
+  else if (pct >= 75) { label = 'Strong'; emoji = '🔥'; remark = 'Solid across the board. You demonstrate the right balance of technical know-how and real-world judgment. A little polish and you\'re ready.'; }
+  else if (pct >= 50) { label = 'Good Foundation'; emoji = '📈'; remark = 'You have the basics and the right attitude. Focus on the areas you missed — especially integrity and judgment, which matter most.'; }
+  else if (pct >= 30) { label = 'Needs Development'; emoji = '💪'; remark = 'You\'re early in your journey and that\'s okay. This exam values honesty over expertise. If you answered truthfully, you\'re on the right path.'; }
+  else { label = 'Needs Development'; emoji = '💪'; remark = 'Take this as a learning opportunity. Study the fundamentals, practice with intent, and come back stronger. Everyone starts somewhere.'; }
+
+  document.getElementById('modalIcon').textContent = emoji;
+  document.getElementById('modalScore').innerHTML = `<span class="ms-num">0</span><span class="ms-out">out of ${total}</span>`;
+  document.getElementById('modalLabel').textContent = label;
+  document.getElementById('modalName').textContent = `${candidateName} · ${candidateInterest}`;
+  document.getElementById('modalRemark').textContent = remark;
+  document.getElementById('scoreRing').style.setProperty('--pct', `0%`);
+
+  renderBreakdown('modalBreakdown');
+  modal.classList.add('show');
+
+  document.getElementById('questionCard').style.display = 'none';
+  document.getElementById('resultsWrap').style.display = 'none';
+
+  saveState();
+  setTimeout(() => { animateModalScore(correct, pct); }, 400);
+  setTimeout(() => { burstConfetti(120); }, 600);
+  setTimeout(() => { burstConfetti(80); }, 1100);
+}
+
+document.getElementById('modalBtn').addEventListener('click', endExam);
+
+function getResultsMessage(correct) {
+  let body;
+  if (correct === 32) body = 'A perfect score. That said, this exam values honesty over perfection — if this was genuinely your understanding, well done. If you answered what you thought we wanted to hear, consider reflecting on that. Skill can be taught. Integrity matters more.';
+  else if (correct >= 27) body = 'A strong, well-rounded score. You demonstrate solid instincts across the board. If you scored perfectly on Section 5 (Integrity) but had gaps in technical sections, that is an excellent sign — skill can be taught, but the right mindset cannot.';
+  else if (correct >= 22) body = 'A good foundation. You have a healthy mix of practical knowledge and the right instincts. Review the areas you missed — especially Section 5, which is the most important indicator of long-term fit.';
+  else if (correct >= 16) body = 'You have some catching up to do on the technical side, but do not be discouraged. This exam is designed to test instincts as much as knowledge. If you answered honestly and scored well on Section 5 (Integrity), you may still be a strong candidate.';
+  else body = 'This score suggests either a lack of familiarity with the basics, or that you may have rushed through the questions. We encourage you to study the fundamentals — photography, videography, editing — and try again. Remember: honesty and willingness to learn matter more than knowing everything today.';
+  return `<strong>What this means</strong>${body}`;
+}
+
+function getSectionScores() {
+  return sections.map(sec => {
+    let secCorrect = 0;
+    const secTotal = sec.end - sec.start + 1;
+    for (let i = sec.start; i <= sec.end; i++) {
+      if (answers[i] === questions[i].a) secCorrect++;
+    }
+    return { name: sec.name, correct: secCorrect, total: secTotal };
+  });
+}
+
+function renderBreakdown(containerId) {
+  const secResults = getSectionScores();
+  const maxScore = Math.max(...secResults.map(s => s.correct));
+  const topSections = secResults.filter(s => s.correct === maxScore);
+  const talentText = topSections.length === 1
+    ? `Main Talent: ${topSections[0].name}`
+    : `Main Talents: ${topSections.map(s => s.name).join(', ')}`;
+
+  const bd = document.getElementById(containerId);
+  bd.innerHTML = '';
+  const talentDiv = document.createElement('div');
+  talentDiv.className = 'talent-label';
+  talentDiv.textContent = talentText;
+  bd.appendChild(talentDiv);
+
+  secResults.forEach((sr, idx) => {
+    const div = document.createElement('div');
+    div.className = 's-break' + (sr.correct === maxScore ? ' s-break-top' : '');
+    div.style.animationDelay = `${0.15 + idx * 0.08}s`;
+    div.innerHTML = `<div class="sb-label">${sr.name}</div><div class="sb-score">${sr.correct}<span class="sb-total">/${sr.total}</span></div>`;
+    bd.appendChild(div);
+  });
+}
+
+function restoreResults() {
+  const total = questions.length;
+  let correct = 0;
+  answers.forEach((ans, i) => { if (ans === questions[i].a) correct++; });
+  document.getElementById('totalScore').innerHTML = `<span class="ms-num">0</span><span class="ms-out">out of ${total}</span>`;
+
+  const pct = Math.round((correct / total) * 100);
+  let label, emoji;
+  if (pct >= 90) { label = 'Exceptional'; emoji = '🏆'; }
+  else if (pct >= 75) { label = 'Strong'; emoji = '🔥'; }
+  else if (pct >= 50) { label = 'Good Foundation'; emoji = '📈'; }
+  else { label = 'Needs Development'; emoji = '💪'; }
+  document.getElementById('scoreLabel').textContent = label;
+  document.getElementById('celebrationEmoji').textContent = emoji;
+  document.getElementById('candidateInfo').textContent = `${candidateName} · Interested in ${candidateInterest}`;
+
+  renderBreakdown('sectionBreakdown');
+  document.getElementById('resultsMessage').innerHTML = getResultsMessage(correct);
+  setTimeout(() => { animateScore(correct); }, 200);
+}
+</script>
+</body>
+</html>

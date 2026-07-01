@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+  <circle cx="0" cy="0" r="88" fill="none" stroke="#EAF0FA" stroke-width="1" stroke-dasharray="1 5" opacity="0.5"/>
+  <g transform="rotate(0)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z" fill="#E0793F"/></g>
+  <g transform="rotate(45)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z" fill="#C7D4E8"/></g>
+  <g transform="rotate(90)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z" fill="#8DA4C4"/></g>
+  <g transform="rotate(135)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z" fill="#C7D4E8"/></g>
+  <g transform="rotate(180)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z" fill="#FFFFFF"/></g>
+  <g transform="rotate(225)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z" fill="#C7D4E8"/></g>
+  <g transform="rotate(270)"><path d="M0,0 Q-10,-45 -12,-70 Q0,-82 12,-70 Q10,-45 0,0 Z" fill="#8DA4C4"/></g>
+  <g transform="rotate(315)"><path d="M0,0 Q-7,-30 -8,-48 Q0,-56 8,-48 Q7,-30 0,0 Z" fill="#C7D4E8"/></g>
+  <circle cx="0" cy="0" r="14" fill="#FFFFFF"/>
+  <circle cx="0" cy="0" r="6" fill="#E0793F"/>
+</svg>
