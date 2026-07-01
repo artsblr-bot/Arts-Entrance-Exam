@@ -437,14 +437,18 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  opacity: 1;
-  transform: translateY(0);
+  transition: opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
   padding: 0 4px;
+}
+.survey-tagline .st-text.entering {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 .survey-tagline .st-text.fading {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(-12px) scale(0.9);
 }
 
 .progress-section {
@@ -1823,19 +1827,19 @@ function startTaglineRotation() {
   const el = document.getElementById('stText');
   if (!el) return;
   if (taglineInterval) clearInterval(taglineInterval);
-  el.classList.remove('fading');
-  el.style.opacity = '1';
-  el.style.transform = 'translateY(0)';
   taglineIdx = Math.floor(Math.random() * taglines.length);
   el.textContent = taglines[taglineIdx];
+  requestAnimationFrame(() => { el.classList.add('entering'); });
   taglineInterval = setInterval(() => {
+    el.classList.remove('entering');
     el.classList.add('fading');
     setTimeout(() => {
       taglineIdx = (taglineIdx + 1) % taglines.length;
       el.textContent = taglines[taglineIdx];
       el.classList.remove('fading');
-    }, 500);
-  }, 5000);
+      requestAnimationFrame(() => { el.classList.add('entering'); });
+    }, 400);
+  }, 4800);
 }
 function stopTaglineRotation() {
   if (taglineInterval) { clearInterval(taglineInterval); taglineInterval = null; }
@@ -1860,8 +1864,8 @@ function startExam() {
   document.getElementById('jumbleBar').style.animation = '';
   setTimeout(() => {
     document.getElementById('jumbleOverlay').classList.remove('show');
-    startTaglineRotation();
     surveyWrap.style.display = 'block';
+    startTaglineRotation();
     render();
     setTimeout(() => {
       document.getElementById('surveyWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
