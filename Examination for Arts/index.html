@@ -1513,7 +1513,7 @@ body {
   <div class="hero-content">
     <div class="hero-badge">Arts Entrance Exam</div>
     <h1>Where Creativity<br>Meets Purpose</h1>
-    <p>125 questions across photography, videography, editing, common sense &amp; integrity.</p>
+    <p>30 questions per session from a bank of 125 across photography, videography, editing, common sense &amp; integrity.</p>
   </div>
 </section>
 
@@ -1567,7 +1567,7 @@ body {
       <div class="progress-track">
         <div class="progress-fill" id="progressFill"></div>
       </div>
-      <div class="progress-count" id="progressCount">0 / 125</div>
+      <div class="progress-count" id="progressCount">0 / 30</div>
       <button class="btn-exit" id="btnExit" title="Exit to registration">Exit</button>
     </div>
 
@@ -1590,8 +1590,9 @@ body {
 
     <div id="shortAnswerWrap" class="hidden">
       <div class="question-card question-enter">
-        <div class="q-header">
-          <span class="q-section" style="background:#7B2D8E;">Your Voice</span>
+        <div class="question-badge">
+          <span class="num">✍</span>
+          <span class="section-label">Your Voice</span>
         </div>
         <div class="question-text">In one line, why do you want to join Gurukul Arts?</div>
         <textarea id="shortAnswerInput" rows="2" placeholder="Type your answer here..." maxlength="200" style="width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;font-size:16px;resize:none;outline:none;box-sizing:border-box;font-family:inherit;"></textarea>
@@ -1605,7 +1606,7 @@ body {
     <div id="resultsWrap" class="hidden">
       <div class="results-card results-enter">
         <div class="score-hero score-pulse">
-          <div class="big" id="totalScore"><span class="ms-num">0</span><span class="ms-out">out of 125</span></div>
+          <div class="big" id="totalScore"><span class="ms-num">0</span><span class="ms-out">out of 30</span></div>
         </div>
         <div class="score-label" id="scoreLabel"></div>
         <div class="candidate-info" id="candidateInfo"></div>
@@ -1628,7 +1629,7 @@ body {
       <div class="modal-icon" id="modalIcon">🏆</div>
       <div class="score-ring" id="scoreRing">
         <div class="score-ring-inner">
-          <div class="modal-score" id="modalScore"><span class="ms-num">0</span><span class="ms-out">out of 125</span></div>
+          <div class="modal-score" id="modalScore"><span class="ms-num">0</span><span class="ms-out">out of 30</span></div>
           <div class="modal-label" id="modalLabel">Exceptional</div>
         </div>
       </div>
@@ -1795,13 +1796,26 @@ const rawQuestions = [
 ];
 
 const labels = ['A', 'B', 'C', 'D'];
-const sections = [
+
+// Full bank: 125 questions across 5 sections
+const bankSections = [
   { start: 0, end: 29, name: 'Photography' },
   { start: 30, end: 59, name: 'Videography' },
   { start: 60, end: 89, name: 'Editing' },
   { start: 90, end: 119, name: 'Common Sense & Judgment' },
   { start: 120, end: 124, name: 'Integrity' }
 ];
+const PICKS_PER_SECTION = [7, 7, 7, 7, 2]; // 7+7+7+7+2 = 30 per session
+
+// Session sections for the 30-question subset
+const sessionSections = [
+  { start: 0, end: 6, name: 'Photography' },
+  { start: 7, end: 13, name: 'Videography' },
+  { start: 14, end: 20, name: 'Editing' },
+  { start: 21, end: 27, name: 'Common Sense & Judgment' },
+  { start: 28, end: 29, name: 'Integrity' }
+];
+let sections = sessionSections;
 
 let questions = [];
 let current = 0;
@@ -1859,6 +1873,39 @@ function loadState() {
   } catch(e) { return false; }
 }
 
+function getUsedSet() {
+  try { var val = localStorage.getItem(LS + 'used'); return val ? new Set(JSON.parse(val)) : new Set(); } catch(e) { return new Set(); }
+}
+function saveUsedSet(set) {
+  try { localStorage.setItem(LS + 'used', JSON.stringify([...set])); } catch(e) {}
+}
+
+function pickQuestions() {
+  var usedSet = getUsedSet();
+  var picked = [];
+  var needReset = false;
+  bankSections.forEach(function(bs, si) {
+    var count = PICKS_PER_SECTION[si];
+    var pool = [];
+    for (var i = bs.start; i <= bs.end; i++) {
+      pool.push({ idx: i, q: rawQuestions[i] });
+    }
+    // Exclude already-used questions
+    var avail = pool.filter(function(p) { return !usedSet.has(p.idx); });
+    if (avail.length < count) { needReset = true; }
+    shuffle(avail);
+    for (var i = 0; i < count && i < avail.length; i++) {
+      var src = avail[i].q;
+      picked.push({ q: src.q, o: src.o.slice(), a: src.a, _idx: avail[i].idx });
+    }
+  });
+  if (needReset) {
+    saveUsedSet(new Set());
+    return pickQuestions();
+  }
+  return picked;
+}
+
 function initQuestions() {
   if (loadState()) {
     const ui = localStorage.getItem(LS + 'ui');
@@ -1877,8 +1924,7 @@ function initQuestions() {
     }
     return;
   }
-  questions = rawQuestions.map(q => ({ ...q, o: [...q.o] }));
-  shuffle(questions);
+  questions = pickQuestions();
   questions.forEach(q => {
     const correctText = q.o[q.a];
     shuffle(q.o);
@@ -1998,6 +2044,10 @@ function startExam() {
   if (!interest) { const el = document.getElementById('candidateInterest'); el.focus(); el.style.borderColor = '#CC0000'; return; }
   candidateName = name;
   candidateInterest = interest;
+  // Mark current question indices as used so they don't repeat next round
+  var used = getUsedSet();
+  questions.forEach(function(q) { if (q._idx !== undefined) used.add(q._idx); });
+  saveUsedSet(used);
   saveState();
   landing.style.display = 'none';
   document.getElementById('jumbleOverlay').classList.add('show');
@@ -2063,10 +2113,10 @@ function resetExam() {
   stopTimer();
   stopTaglineRotation();
   clearState();
+  saveUsedSet(new Set());
   document.getElementById('resultModal').classList.remove('show');
   hideShortAnswer();
-  questions = rawQuestions.map(q => ({ ...q, o: [...q.o] }));
-  shuffle(questions);
+  questions = pickQuestions();
   questions.forEach(q => {
     const correctText = q.o[q.a];
     shuffle(q.o);
