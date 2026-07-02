@@ -1513,7 +1513,7 @@ body {
   <div class="hero-content">
     <div class="hero-badge">Arts Entrance Exam</div>
     <h1>Where Creativity<br>Meets Purpose</h1>
-    <p>A 32-question exam across photography, videography, editing, judgment &amp; integrity.</p>
+    <p>125 questions across photography, videography, editing, common sense &amp; integrity.</p>
   </div>
 </section>
 
@@ -1567,7 +1567,7 @@ body {
       <div class="progress-track">
         <div class="progress-fill" id="progressFill"></div>
       </div>
-      <div class="progress-count" id="progressCount">0 / 32</div>
+      <div class="progress-count" id="progressCount">0 / 125</div>
       <button class="btn-exit" id="btnExit" title="Exit to registration">Exit</button>
     </div>
 
@@ -1588,10 +1588,24 @@ body {
       </div>
     </div>
 
+    <div id="shortAnswerWrap" class="hidden">
+      <div class="question-card question-enter">
+        <div class="q-header">
+          <span class="q-section" style="background:#7B2D8E;">Your Voice</span>
+        </div>
+        <div class="question-text">In one line, why do you want to join Gurukul Arts?</div>
+        <textarea id="shortAnswerInput" rows="2" placeholder="Type your answer here..." maxlength="200" style="width:100%;padding:12px;border:2px solid #ddd;border-radius:12px;font-size:16px;resize:none;outline:none;box-sizing:border-box;font-family:inherit;"></textarea>
+        <div style="text-align:right;font-size:13px;color:#888;margin-top:4px;"><span id="saCharCount">0</span>/200</div>
+        <div class="nav-buttons" style="margin-top:20px;">
+          <button class="btn btn-submit-exam" id="btnFinalSubmit" disabled>View Results →</button>
+        </div>
+      </div>
+    </div>
+
     <div id="resultsWrap" class="hidden">
       <div class="results-card results-enter">
         <div class="score-hero score-pulse">
-          <div class="big" id="totalScore"><span class="ms-num">0</span><span class="ms-out">out of 32</span></div>
+          <div class="big" id="totalScore"><span class="ms-num">0</span><span class="ms-out">out of 125</span></div>
         </div>
         <div class="score-label" id="scoreLabel"></div>
         <div class="candidate-info" id="candidateInfo"></div>
@@ -1614,11 +1628,12 @@ body {
       <div class="modal-icon" id="modalIcon">🏆</div>
       <div class="score-ring" id="scoreRing">
         <div class="score-ring-inner">
-          <div class="modal-score" id="modalScore"><span class="ms-num">0</span><span class="ms-out">out of 32</span></div>
+          <div class="modal-score" id="modalScore"><span class="ms-num">0</span><span class="ms-out">out of 125</span></div>
           <div class="modal-label" id="modalLabel">Exceptional</div>
         </div>
       </div>
     <div class="modal-name" id="modalName"></div>
+    <div class="modal-quote" id="modalQuote" style="margin:8px 16px 0;font-style:italic;color:#666;font-size:14px;text-align:center;line-height:1.4;"></div>
     <div class="modal-remark" id="modalRemark"></div>
     <div class="section-breakdown" id="modalBreakdown" style="margin-top:16px;"></div>
     <button class="modal-btn" id="modalBtn">End →</button>
@@ -1653,46 +1668,139 @@ function shuffle(arr) {
 
 const rawQuestions = [
   { q: 'What does "exposure" mean in photography, in simple terms?', o: ['How famous the photographer is','How much light reaches the camera to make the picture bright or dark','How many photos you can take in a day','The price of the camera'], a: 1 },
-  { q: "You're taking a photo of a person outdoors and the sun is directly behind them. What usually happens?", o: ['The photo becomes perfectly lit',"The person turns into a dark shadow unless you do it on purpose",'Nothing changes','The camera automatically fixes it'], a: 1 },
-  { q: 'What is the best time of day for soft, nice outdoor light?', o: ['12 PM (noon)','Early morning or evening, near sunrise/sunset','Midnight',"It doesn't matter, all light is the same"], a: 1 },
+  { q: 'A larger f-number (like f/16) compared to a smaller one (like f/2.8) means:', o: ['A bigger opening letting in more light','A smaller opening letting in less light','Faster shutter speed automatically','Higher ISO automatically'], a: 1 },
+  { q: 'You\'re taking a photo of a person outdoors and the sun is directly behind them. What usually happens?', o: ['The photo becomes perfectly lit','The person turns into a dark shadow (silhouette) unless you do it on purpose','Nothing changes','The camera automatically fixes it'], a: 1 },
+  { q: 'You want a fast-moving subject to appear frozen, sharp, with no blur. You should use:', o: ['A slow shutter speed','A fast shutter speed','A wide aperture only','A high ISO only, shutter speed doesn\'t matter'], a: 1 },
+  { q: 'What is the best time of day for soft, flattering outdoor light?', o: ['12 PM (noon)','Early morning or evening, near sunrise/sunset','Midnight','It doesn\'t matter, all light is the same'], a: 1 },
+  { q: 'White balance in a camera mainly corrects for:', o: ['The sharpness of the image','The color tint caused by different light sources','The zoom level','The exposure brightness'], a: 1 },
   { q: 'A photo comes out blurry. What is the MOST likely reason?', o: ['The camera is too expensive','The photographer moved, or the focus was wrong','The subject was too happy','The memory card is full'], a: 1 },
+  { q: 'Which of these creates a SHALLOW depth of field (blurry background, sharp subject)?', o: ['Small aperture (like f/16) and far distance from subject','Wide aperture (like f/1.8) and close distance from subject','Small aperture and close distance from subject','Any aperture, distance doesn\'t matter'], a: 1 },
   { q: 'What is the "rule of thirds"?', o: ['A rule that says take only 3 photos','A way of placing your subject off-center using an imaginary grid, to make the photo look more natural','A rule about camera price','A software setting'], a: 1 },
-  { q: "You're shooting a group of 10 people for an event. What's the smartest thing to do?", o: ['Take just one photo and move on',"Take a few extra shots and quickly check if everyone's eyes are open before leaving",'Ask everyone to look serious only','Let people arrange themselves however they want without guidance'], a: 1 },
-  { q: 'What does ISO roughly control in a camera?', o: ["The camera's Wi-Fi",'How sensitive the camera is to light — useful in dark places but can make photos look not clear','The zoom level','The battery life'], a: 1 },
-  { q: 'What is a gimbal mainly used for?', o: ['Recording audio',"Keeping the camera steady while moving, so footage doesn't shake",'Charging the camera','Storing video files'], a: 1 },
-  { q: 'Why do videographers often record a few extra seconds before and after the important action?', o: ['To waste battery',"So editors have room to cut smoothly without losing the important part","It's not necessary, it's just a habit",'To make the file bigger'], a: 1 },
+  { q: 'A photo\'s histogram is pushed heavily to the right side with a spike at the very edge. This usually means:', o: ['The photo is underexposed (too dark)','The photo has areas that are overexposed (blown-out highlights)','The photo has perfect exposure','The photo has too much contrast, nothing to do with exposure'], a: 1 },
+  { q: 'You\'re shooting a group of 10 people for an event. What\'s the smartest thing to do?', o: ['Take just one photo and move on','Take a few extra shots and quickly check if everyone\'s eyes are open before leaving','Ask everyone to look serious only','Let people arrange themselves however they want without guidance'], a: 1 },
+  { q: 'Shooting in RAW format compared to JPEG mainly gives you:', o: ['Smaller file sizes for easier sharing','More information to adjust in editing, at the cost of larger file size','Automatically better colors straight out of camera','Faster camera performance'], a: 1 },
+  { q: 'What does ISO roughly control in a camera?', o: ['The camera\'s Wi-Fi','How sensitive the camera is to light — useful in dark places but can make photos grainy','The zoom level','The battery life'], a: 1 },
+  { q: '"Golden hour" refers to:', o: ['The hour right at noon when light is strongest','The hour after sunrise and before sunset when light is soft and warm','Any hour you\'re free to shoot','Midnight, when long-exposure shots work best'], a: 1 },
+  { q: 'Using fill flash outdoors on a bright sunny day is useful for:', o: ['Making the whole photo brighter overall','Softening harsh shadows on a subject\'s face caused by strong sunlight','Replacing the need for good lighting entirely','Making night photos look like day'], a: 1 },
+  { q: '"Leading lines" in composition refers to:', o: ['The first line of text in a caption','Using natural lines in a scene (like a road or fence) to guide the viewer\'s eye toward the subject','A rule that says never use straight lines','The border/frame of the photo itself'], a: 1 },
+  { q: 'A longer focal length (like 200mm) compared to a shorter one (like 24mm), when photographing a face up close, tends to:', o: ['Distort the face, making the nose look bigger','Compress features more naturally and flatteringly','Have no visible effect on how a face looks','Always make the photo blurrier'], a: 1 },
+  { q: 'You see a person backlit by the sun and want a glowing outline around them rather than a full silhouette. You should:', o: ['Increase exposure slightly or use fill light on their face while keeping the backlight','Turn off the flash completely and underexpose heavily','Move so the sun is directly behind you instead','This effect isn\'t achievable with natural light'], a: 0 },
+  { q: '"Negative space" in a photo refers to:', o: ['A mistake where too much of the frame is empty','Intentionally leaving empty area around a subject to create emphasis or mood','Editing out the background completely in post','A technical term for underexposed areas'], a: 1 },
+  { q: 'Spot metering on a camera measures light based on:', o: ['The entire frame equally','A small specific area, usually the center or focus point','Only the brightest part of the frame','The camera\'s flash output'], a: 1 },
+  { q: 'Continuous (burst) shooting mode is most useful for:', o: ['Portraits where the subject is completely still','Fast action or unpredictable moments where timing is hard to catch in one shot','Saving battery life','Getting better color accuracy'], a: 1 },
+  { q: 'A polarizing filter is mainly used to:', o: ['Make colors black and white','Reduce glare/reflections and deepen sky/water colors','Increase ISO sensitivity','Add blur to the background'], a: 1 },
+  { q: 'An image where details in the bright sky are completely white with no texture is called:', o: ['Underexposed','Blown-out / overexposed highlights','Correctly exposed','Under-saturated'], a: 1 },
+  { q: 'The "rule of odds" in composition suggests:', o: ['Always use an even number of subjects for balance','An odd number of subjects (like 3 or 5) often feels more visually pleasing than an even number','Only take photos on odd-numbered days','Odd-shaped objects should be avoided'], a: 1 },
+  { q: 'Placing an object slightly out of focus in the foreground while your subject stays sharp is called:', o: ['A mistake to always avoid','A foreground framing technique to add depth','Backlighting','Overexposure'], a: 1 },
+  { q: 'On the white balance Kelvin scale, a LOWER Kelvin value (like 3000K) produces:', o: ['A cooler, bluer tone','A warmer, more orange/yellow tone','No visible color shift','Black and white output'], a: 1 },
+  { q: 'A tripod is most useful compared to handheld shooting when:', o: ['You\'re photographing fast-moving sports','You need long exposure or completely stable shots, like low light or landscapes','You want more creative freedom of movement','It makes no real difference either way'], a: 1 },
+  { q: 'Compared to a zoom lens, a prime (fixed focal length) lens typically offers:', o: ['More flexibility since you can change focal length without moving','Often a wider maximum aperture and sharper image, but you must move yourself to reframe','Always worse image quality','Automatic focal length adjustment'], a: 1 },
+  { q: 'In low light, increasing ISO too much mainly results in:', o: ['Sharper images with no downside','Brighter images but with more visible grain/noise','Slower shutter speed automatically','No change to the image at all'], a: 1 },
+  { q: '"Non-destructive editing" means:', o: ['Editing that can never be undone','Editing where the original file stays unchanged and adjustments are applied as layers/instructions on top','Editing only in black and white','A style of editing that avoids using software'], a: 1 },
+  { q: 'What is a gimbal mainly used for?', o: ['Recording audio','Keeping the camera steady while moving, so footage doesn\'t shake','Charging the camera','Storing video files'], a: 1 },
+  { q: 'Shooting at 24fps (frames per second) compared to 60fps generally gives:', o: ['A more "cinematic," slightly natural motion look, standard for films','Perfectly smooth slow-motion footage','No visual difference at all','Automatically better low-light performance'], a: 0 },
+  { q: 'Why do videographers often record a few extra seconds before and after the important action?', o: ['To waste battery','So editors have room to cut smoothly without losing the important part','It\'s not necessary, it\'s just a habit','To make the file bigger'], a: 1 },
+  { q: 'To create smooth slow-motion footage in editing later, you should record at:', o: ['A lower frame rate than your final output','A higher frame rate than your final output (e.g., film at 60fps to slow down to a 24fps final video)','Frame rate doesn\'t matter for slow motion','The same frame rate as playback, always'], a: 1 },
   { q: 'What is "B-roll"?', o: ['The second camera brand','Extra supporting footage (like background shots) used alongside the main footage','A broken video file','A type of gimbal'], a: 1 },
-  { q: 'Why is audio quality important in a video, even when the visuals look great?', o: ["It isn't important, only visuals matter",'Because bad audio makes people stop watching even if the video looks beautiful','Audio can be fixed anytime with no effort','Only music matters, not voice'], a: 1 },
-  { q: 'What should you always check BEFORE starting a shoot?', o: ['Nothing, just start filming','Battery level, storage space, and focus','Only the lens cap',"The client's phone number"], a: 1 },
-  { q: "You're filming an interview in a noisy place. What's the smart move?", o: ["Ignore it, background noise adds character",'Use a separate mic or move to a quieter spot','Shout the questions louder','Stop filming completely'], a: 1 },
-  { q: "Where should you generally place a person's face in an interview shot for a good frame?", o: ['Exactly at the bottom edge','Slightly off-center, following the rule of thirds',"It doesn't matter at all",'Always in the top corner'], a: 1 },
+  { q: 'Mixing footage shot with very different white balance settings across the same scene will result in:', o: ['No visible issue, editing software fixes it automatically','Noticeably inconsistent color tones between shots that need correcting','Better dynamic range','Automatically matched colors in-camera'], a: 1 },
+  { q: 'Why is audio quality important in a video, even when the visuals look great?', o: ['It isn\'t important, only visuals matter','Because bad audio makes people stop watching even if the video looks beautiful','Audio can be fixed anytime with no effort','Only music matters, not voice'], a: 1 },
+  { q: '"Continuity" in videography/filmmaking refers to:', o: ['Keeping the camera recording non-stop without cuts','Making sure details (like clothing, props, lighting) stay consistent across shots meant to look like the same moment','A type of transition effect','The total length of the final video'], a: 1 },
+  { q: 'What should you always check BEFORE starting a shoot?', o: ['Nothing, just start filming','Battery level, storage space, and focus','Only the lens cap','Whether the coffee is nearby'], a: 1 },
+  { q: 'A "tracking shot" specifically means:', o: ['Zooming in and out repeatedly','The camera physically moves alongside or with the subject as it moves','Keeping the camera completely still','Switching between multiple pre-set camera angles'], a: 1 },
+  { q: 'You\'re filming an interview in a noisy place. What\'s the smart move?', o: ['Ignore it, background noise adds character','Use an external mic or move to a quieter spot','Shout the questions louder','Stop filming completely'], a: 1 },
+  { q: 'Compared to a tripod, a gimbal is the better choice when:', o: ['You need the camera to stay in one fixed static position','You need to move with the subject while keeping footage smooth','You\'re shooting in extremely windy conditions with a heavy lens','Cost is the only concern, gimbals are always cheaper'], a: 1 },
+  { q: 'Where should you generally place a person\'s face in an interview shot for good composition?', o: ['Exactly at the bottom edge','Slightly off-center, following the rule of thirds','It doesn\'t matter at all','Always in the top corner'], a: 1 },
+  { q: 'The most reliable way to reduce visible handheld shake WITHOUT any stabilizing gear is:', o: ['Walk faster to finish quickly','Keep elbows tucked in, use both hands, and take slow, deliberate steps','Hold the camera with one hand for flexibility','Zoom in more, it naturally reduces shake'], a: 1 },
+  { q: 'If your recorded audio and video appear out of sync during editing, the most common cause is:', o: ['The lens was dirty','A frame rate mismatch or drift between the separate audio and video recording devices','The battery was low','It\'s unfixable and the footage must be discarded'], a: 1 },
+  { q: 'For a formal interview setup indoors, a lavalier (clip-on) mic is usually better than a shotgun mic because:', o: ['It captures a wider area of ambient room sound','It stays close to the subject\'s voice consistently, reducing background noise pickup','It\'s always cheaper','It doesn\'t need batteries'], a: 1 },
+  { q: 'An "establishing shot" at the start of a scene mainly exists to:', o: ['Show the most dramatic close-up moment first','Give viewers context of the location/setting before the main action','Test the camera\'s focus','Always be the shortest shot in the sequence'], a: 1 },
+  { q: 'A "cutaway shot" (like hands, objects, or reactions) is used in editing mainly to:', o: ['Fill time when you have nothing else to show','Hide a jump cut or add context without breaking the flow','Always come at the very end of a video','Replace the need for good main footage'], a: 1 },
+  { q: 'Recording "room tone" (a few seconds of pure ambient silence in a location) is useful because:', o: ['It\'s completely unnecessary and rarely done','It helps smooth out audio edits later so silences don\'t sound unnaturally dead','It\'s only needed for outdoor shoots','It replaces the need for a microphone'], a: 1 },
+  { q: '"Rack focus" refers to:', o: ['Storing your camera on a rack between shots','Shifting focus from one subject/depth to another within a single continuous shot','A type of camera mount','Increasing resolution mid-recording'], a: 1 },
+  { q: 'Comparing a time-lapse and a hyperlapse:', o: ['They are exactly the same thing','A time-lapse is from a fixed position; a hyperlapse involves the camera physically moving between frames','A hyperlapse is always slower than real-time','A time-lapse requires a moving camera, a hyperlapse doesn\'t'], a: 1 },
+  { q: 'If footage recorded at one frame rate is played back at a mismatched frame rate, the likely visible result is:', o: ['Perfectly smooth motion regardless','Judder or stuttering motion','Automatic correction with no visible issue','The audio disappearing'], a: 1 },
+  { q: 'During an interview, having the subject look slightly off-camera (at the interviewer, not the lens) rather than directly into the lens:', o: ['Is always wrong and unprofessional','Is a common, natural-feeling choice for conversational interviews','Makes the footage unusable','Only applies to news broadcasts, never elsewhere'], a: 1 },
+  { q: 'Recording backup footage on a second card/device simultaneously is mainly done to:', o: ['Make the footage look better','Protect against footage loss if one card fails or gets corrupted','Increase the frame rate','It\'s an outdated practice, unnecessary today'], a: 1 },
+  { q: 'Choosing a 9:16 (vertical) aspect ratio instead of 16:9 (horizontal) is the right call when:', o: ['It never matters, all platforms treat them the same','The content is meant primarily for mobile/social platforms like Reels or Shorts','You\'re shooting for a cinema screen','You want a wider field of view always'], a: 1 },
+  { q: 'A "J-cut" in editing means:', o: ['The video cuts before the audio does','The audio from the next clip starts playing before its video appears','A hard cut with no transition','A type of camera movement, not an editing term'], a: 1 },
+  { q: 'If a subject keeps looking directly at the camera lens during a documentary-style (not interview) shot, the smart response is:', o: ['Keep it, it doesn\'t matter','Gently redirect them to act naturally and ignore the camera, or reposition yourself','Stop filming permanently','Zoom in closer to make it look intentional'], a: 1 },
+  { q: 'The main reason to shoot multiple takes of the same shot is:', o: ['It\'s required by every camera automatically','To have options in editing in case of mistakes, blinks, or better timing','It always wastes time and should be avoided','Only needed for scripted films, never real events'], a: 1 },
+  { q: 'When filming a fast pan (camera sweeping sideways) too quickly, the common visible issue is:', o: ['Perfectly smooth footage','Motion blur/strobing that looks jarring','The audio becomes distorted','The video automatically slows down'], a: 1 },
+  { q: 'A shotgun mic mounted on the camera (versus off-camera on a boom) will generally:', o: ['Isolate voice equally well from any distance','Pick up more ambient room noise the farther the subject is from the camera','Never need a windscreen outdoors','Replace the need for a lavalier mic in all situations'], a: 1 },
   { q: 'Which of these is mainly used for video editing?', o: ['Adobe Premiere Pro','Microsoft Excel','Google Maps','WhatsApp'], a: 0 },
+  { q: 'A "keyframe" in editing software is used to:', o: ['Lock a clip so it can never be edited again','Mark a specific point where a property (like position, opacity, or volume) changes over time','Save the entire project as a backup','Mute the audio at that exact frame'], a: 1 },
   { q: 'What is "color grading" in editing?', o: ['Giving marks to a video','Adjusting the colors and mood of a video to make it look a certain way','Renaming a file','Adding subtitles'], a: 1 },
+  { q: '"Nesting" a sequence in Premiere Pro means:', o: ['Deleting unused clips automatically','Placing one full sequence inside another as a single clip to organize/apply effects together','Exporting a project in multiple formats','A shortcut for undoing changes'], a: 1 },
   { q: 'DaVinci Resolve is mainly known for being strong at:', o: ['Sending emails','Color correction and video editing','Making spreadsheets','Editing PDFs'], a: 1 },
+  { q: 'Color correction and color grading are:', o: ['Exactly the same thing with different names','Different: correction fixes technical issues (exposure/white balance), grading creates a stylistic look','Both only apply to still photos, not video','Both terms for adjusting audio levels'], a: 1 },
   { q: 'What is a "cut" in video editing?', o: ['Damaging the camera','The point where one shot ends and another begins','Deleting the whole project','A type of gimbal movement'], a: 1 },
-  { q: 'Why should you regularly back up your project files while editing?', o: ["It's not necessary",'Because your work could be lost if the file gets deleted, damaged, or the software crashes','Only professionals need to do this','Backups slow down the computer, so avoid them'], a: 1 },
-  { q: 'What is Photoshop mainly used for?', o: ['Editing and improving photos/images','Editing videos only','Recording audio','Managing a calendar'], a: 0 },
-  { q: "If a video feels boring in the middle section, what's a common editing fix?", o: ['Delete the entire video','Trim slow parts, add music or pacing changes to keep it interesting','Make it longer','Add more silence'], a: 1 },
-  { q: 'A client calls you last minute and changes the shoot time. What do you do?', o: ['Ignore the call',"Calmly adjust your plan if possible, and let them know clearly if it's not possible",'Get angry at the client',"Cancel the shoot without telling anyone"], a: 1 },
-  { q: "You realize the camera battery wasn't charged the night before a shoot. What should you have done differently?", o: ["Nothing, it's not your responsibility",'Checked and charged all equipment the night before as a habit','Blamed the camera',"Borrowed a friend's phone instead"], a: 1 },
-  { q: "You're setting up for a shot and a great unplanned moment happens right in front of you. What do you do?", o: ['Ignore it and finish your setup first','Quickly pick up whatever camera/phone is fastest to take the shot, then continue setup','Ask the moment to happen again later','Only shoot things that are planned'], a: 1 },
-  { q: "A client says they're unhappy with the photos/videos you delivered. What's the best first response?", o: ["Argue that they don't understand good work",'Listen calmly, understand what specifically they don\'t like, and see what can be improved','Ignore the feedback','Blame the equipment'], a: 1 },
-  { q: "You're running 15 minutes late to a shoot. What's the smartest immediate action?", o: ['Say nothing and just show up late','Message ahead and let them know your updated arrival time','Cancel the whole shoot','Take a longer route to avoid embarrassment'], a: 1 },
-  { q: "During an event you're covering, something unexpected and slightly messy happens nearby (not dangerous, just distracting). What's the smart reaction?", o: ['Stop everything and go watch','Stay calm, keep doing your job, and only react if it is connected to what you\'re covering','Panic and leave','Start filming it regardless of relevance to the assignment'], a: 1 },
-  { q: 'You finish your assigned work early and still have the gimbal and camera with you for the rest of the day. What do you do?', o: ["Use the free time to quietly shoot personal content since no one is watching",'Message and ask if it\'s okay to use the gear for a personal project, or simply return it if unsure',"Keep it for the day without saying anything, you'll return it in the evening anyway","Lend it to a friend since you're not using it"], a: 1 },
-  { q: "You've been given access to Premiere Pro, After Effects, and Photoshop strictly for foundation projects. You want to edit a personal reel using them. What's the right approach?", o: ["Just do it quietly, it's a small thing and no one will notice",'Ask directly if personal use is allowed, and follow whatever the answer is',"Do it and mention it only if someone asks","Assume it's fine since you weren't told not to"], a: 1 },
-  { q: "You don't know how to use a certain effect or transition in the editing software. What's your best move?", o: ["Avoid using it and pretend you meant to keep it simple",'Search for a tutorial, ask someone, and try to learn it properly',"Say it's not possible to do",'Wait for someone else to do it for you every time'], a: 1 },
-  { q: 'You accidentally deleted an important client file while working. What do you do?', o: ['Stay quiet and hope no one notices','Immediately inform the relevant person and try to recover or fix it',"Blame a technical issue without mentioning it was you",'Delete the backup too so there\'s no proof'], a: 1 },
-  { q: "You get a chance at a great personal opportunity (like a paid personal shoot) using the foundation's equipment during your off hours. What's the right first step?", o: ["Just take the opportunity, it's your own time",'Ask permission first, since the equipment belongs to the foundation, not you',"Do it without asking, but return the gear clean afterward","Do it and only mention it if it goes really well"], a: 1 }
+  { q: 'A LUT (Look-Up Table) in video editing is:', o: ['A list of all your footage files','A preset that maps colors to create a specific look, applied to footage','A backup file format','A type of transition effect'], a: 1 },
+  { q: 'Why should you regularly back up your assignment files while editing?', o: ['It\'s not necessary','Because your work could be lost if the file gets deleted, corrupted, or the software crashes','Only professionals need to do this','Backups slow down the computer, so avoid them'], a: 1 },
+  { q: 'Editing with "proxies" (lower-resolution stand-in files) is mainly done to:', o: ['Permanently reduce your footage quality','Allow smoother editing performance on less powerful computers, then relink to full quality for export','Make files easier to delete','Automatically add color grading'], a: 1 },
+  { q: 'What is Photoshop mainly used for?', o: ['Editing and enhancing photos/images','Editing videos only','Recording audio','Managing a calendar'], a: 0 },
+  { q: 'If you export a video at a lower resolution than your original footage, you will:', o: ['Keep all original detail with a smaller file size','Lose some detail/sharpness in exchange for a smaller file size','Automatically improve the frame rate','Have no visible change'], a: 1 },
+  { q: 'If a video feels boring in the middle section, what\'s a common editing fix?', o: ['Delete the entire video','Trim slow parts, add music or pacing changes to keep it engaging','Make it longer','Add more silence'], a: 1 },
+  { q: 'In Photoshop, working with "layers" allows you to:', o: ['Only apply one edit at a time to the whole image','Stack and edit different elements/adjustments independently without permanently altering the base image','Automatically merge all edits with no way to undo','Reduce file size significantly'], a: 1 },
+  { q: '"Masking" in editing software is used to:', o: ['Delete part of an image or clip permanently','Hide or reveal specific parts of a layer/clip without permanently deleting anything','Add a watermark automatically','Convert video to audio-only'], a: 1 },
+  { q: 'A codec and a container/file format (like MP4) are:', o: ['The exact same thing','Different: the codec compresses the video/audio data, the container holds the compressed data together','Both refer only to audio files','Interchangeable terms with no real distinction that matters practically'], a: 1 },
+  { q: 'After Effects is generally the better choice over Premiere Pro when the task is:', o: ['Cutting together a long-form interview video','Creating detailed motion graphics, titles, or visual effects','Organizing raw footage from a shoot','Basic trimming of clips only'], a: 1 },
+  { q: 'DaVinci Resolve\'s color page uses a "node-based" system, which means:', o: ['Color adjustments are all applied in one single step with no flexibility','You can chain multiple separate adjustment steps together for precise, layered control','It only works with black and white footage','It automatically colors footage with no manual input'], a: 1 },
+  { q: '"Audio ducking" refers to:', o: ['Removing all background music from a video','Automatically lowering background music volume when dialogue/voice is present','A transition effect between video clips','Converting stereo audio to mono'], a: 1 },
+  { q: 'Using too many flashy transitions (spins, flashes, zooms) between every single cut in a video typically:', o: ['Always makes the video look more professional','Can feel distracting and amateurish if overused without purpose','Has no effect on how viewers perceive the video','Is required for social media content to perform well'], a: 1 },
+  { q: 'Export "bitrate" mainly affects:', o: ['The video\'s frame rate','The amount of data used per second of video, affecting quality and file size','The resolution only','The audio pitch'], a: 1 },
+  { q: 'Visible blocky or smeared distortion in a video, especially in fast motion or dark scenes, is usually a sign of:', o: ['A camera hardware fault only','Heavy compression artifacts from a low bitrate or over-compressed export','Correct, high-quality export settings','An intentional stylistic choice always'], a: 1 },
+  { q: 'Keeping organized version backups of an assignment (v1, v2, final, final_final, etc.) while editing is important mainly because:', o: ['It\'s unnecessary if you trust your software','It lets you recover previous states if something breaks, gets overwritten, or a team member or senior wants an earlier version','It automatically improves render speed','Software crashes never actually lose work'], a: 1 },
+  { q: 'When stacking multiple effects/plugins on a single clip, the ORDER you apply them in:', o: ['Never matters, results are always identical','Can matter significantly, since each effect processes the output of the one before it','Only matters for audio, never video','Is automatically optimized by the software'], a: 1 },
+  { q: 'Applying an effect to an entire "track" versus a single "clip" means:', o: ['There\'s no functional difference','A track-level effect applies to everything on that track; a clip-level effect applies only to that one piece','Track effects are always temporary, clip effects are permanent','Clips cannot have individual effects, only tracks can'], a: 1 },
+  { q: 'An "adjustment layer" in editing is useful because:', o: ['It permanently bakes an effect into the footage below it immediately','It applies an effect to everything below it in the timeline without editing each clip individually','It only works for audio adjustments','It replaces the need for an export step'], a: 1 },
+  { q: 'For a clean chroma key (green screen) removal, the MOST important factor is usually:', o: ['The brand of camera used','Even, consistent lighting on the green background with no wrinkles or shadows','Using the most expensive editing software available','Shooting at the highest possible frame rate'], a: 1 },
+  { q: 'If your editing software says footage is "offline" or shows a missing media warning, it usually means:', o: ['The footage is permanently deleted and unrecoverable','The software can\'t currently locate the original file, often due to it being moved or renamed','The internet connection is required to view local footage','The assignment is corrupted beyond repair'], a: 1 },
+  { q: 'Learning keyboard shortcuts for common actions in editing software mainly helps by:', o: ['Making the final video look better','Significantly speeding up your workflow over time compared to relying only on the mouse/menus','Being required to even open the software','Having no real practical benefit'], a: 1 },
+  { q: 'Rendering/previewing a complex timeline before final export is done to:', o: ['Permanently finalize the video with no further changes possible','Let you preview effects smoothly without lag, since complex edits can be too heavy to play in real-time otherwise','Reduce the file size of the final export','Automatically fix any audio sync issues'], a: 1 },
+  { q: 'The shoot time gets changed at the last minute, with very little notice. What do you do?', o: ['Ignore the change','Calmly adjust your plan if possible, and communicate clearly if it\'s not possible','Get frustrated and difficult about it','Skip the shoot without telling anyone'], a: 1 },
+  { q: 'Midway through covering an event, your only camera develops a technical fault. The smartest immediate move is:', o: ['Stop covering the event entirely and wait for it to be fixed','Quickly assess if it\'s a fixable issue (battery, card, setting) and have a backup plan (phone, borrowed gear) ready','Panic and inform everyone loudly','Pretend everything is fine and keep pressing the shutter anyway'], a: 1 },
+  { q: 'You realize the camera battery wasn\'t charged the night before a shoot. What should you have done differently?', o: ['Nothing, it\'s not your responsibility','Checked and charged all equipment the night before as a habit','Blamed the camera','Borrowed a friend\'s phone instead'], a: 1 },
+  { q: 'You realize partway through editing that you misunderstood what was actually needed for an assignment. The best move is:', o: ['Finish it your way anyway since you already started','Pause, clarify what\'s actually needed, and adjust your approach even if it means redoing some work','Deliver it as-is and let someone else notice the mistake','Avoid mentioning the misunderstanding at all'], a: 1 },
+  { q: 'You\'re mid-setup for a shot and a genuinely great candid moment happens right in front of you. What do you do?', o: ['Ignore it and finish your setup first','Quickly grab whatever camera/phone is fastest to capture the moment, then continue setup','Ask the moment to happen again later','Only shoot things that are planned'], a: 1 },
+  { q: 'Someone gives you criticism about your work that feels harsh but seems technically fair. The mature reaction is:', o: ['Get defensive and explain why they\'re wrong','Separate the tone from the content, and evaluate if the actual point is valid','Agree with everything immediately without thinking it through','Stop asking for feedback in the future'], a: 1 },
+  { q: 'Someone says they\'re unhappy with the photos/videos from a shoot you worked on. What\'s the best first response?', o: ['Argue that they don\'t understand good work','Listen calmly, understand what specifically they don\'t like, and see what can be improved','Ignore the feedback','Blame the equipment'], a: 1 },
+  { q: 'You have three tasks due around the same time and can\'t realistically finish all three at full quality. The smartest approach is:', o: ['Rush through all three equally and hope for the best','Communicate early about the conflict and prioritize based on importance/deadlines','Silently pick one and ignore the others','Wait until the last moment to figure it out'], a: 1 },
+  { q: 'You\'re running 15 minutes late to a shoot. What\'s the smartest immediate action?', o: ['Say nothing and just show up late','Message ahead and let them know your updated arrival time','Cancel the whole shoot','Take a longer route to avoid embarrassment'], a: 1 },
+  { q: 'During a shoot in a sensitive setting (like a hospital or someone\'s private moment), the right instinct is:', o: ['Capture everything possible, ask questions later','Be aware of consent and context, and hold back or ask first when something feels personal or sensitive','Ignore the setting entirely since you\'re just doing your job','Only worry about getting a good shot, nothing else matters'], a: 1 },
+  { q: 'During an event you\'re covering, something unexpected and slightly chaotic happens nearby (not dangerous, just distracting). What\'s the smart reaction?', o: ['Stop everything and go watch','Stay calm, keep doing your job, and only react if it becomes relevant to what you\'re covering','Panic and leave','Start filming it regardless of relevance to the assignment'], a: 1 },
+  { q: 'Weather suddenly turns bad during an outdoor shoot you\'d planned carefully. The smart reaction is:', o: ['Stick to the exact original plan no matter what','Adapt quickly — find alternative locations, angles, or protect equipment as needed','Cancel and give up entirely','Blame the weather forecast and stop trying'], a: 1 },
+  { q: 'You\'re asked to promise a turnaround time for an assignment. The wise approach is:', o: ['Promise the fastest possible time to sound impressive','Give a realistic estimate, accounting for possible delays, rather than an overly optimistic one','Avoid giving any timeline at all','Always say "whatever you want" regardless of feasibility'], a: 1 },
+  { q: 'While covering a live event as part of a small team, you notice a teammate is clearly missing an important angle. The best move is:', o: ['Ignore it, it\'s not your responsibility','Quietly cover that angle yourself if you can, or give them a heads-up','Point it out loudly in front of everyone at the event','Bring it up only much later, after the event is long over'], a: 1 },
+  { q: 'A subject during a shoot is visibly uncomfortable or not cooperating with directions. The smart approach is:', o: ['Keep pushing the same instructions repeatedly','Adjust your approach — simplify directions, build comfort, or change the shot style','Give up on getting a good shot entirely','Get visibly frustrated with them'], a: 1 },
+  { q: 'You have a perfectionist instinct to keep endlessly tweaking a shot/edit. The balanced approach is:', o: ['Keep adjusting forever until it\'s flawless, deadlines aside','Recognize a "good enough to deliver well" point and respect the deadline','Never revise anything once it\'s done','Let someone else decide when you\'re done every single time'], a: 1 },
+  { q: 'You genuinely don\'t know how to approach a task you\'ve been given. The best first step is:', o: ['Guess your way through without telling anyone','Ask a clarifying question or look it up, rather than silently struggling or faking confidence','Avoid the task entirely','Wait for someone to notice you\'re stuck without saying anything'], a: 1 },
+  { q: 'You only have one battery left and multiple important moments still to cover. The smartest approach is:', o: ['Use it however you feel like in the moment','Prioritize the most important, unrepeatable moments first','Save the battery entirely and shoot nothing','Use it all immediately on the very first thing you see'], a: 1 },
+  { q: 'Time is short and you can only get a few shots at an event. The smart approach is:', o: ['Randomly shoot whatever is nearby','Quickly prioritize the most important/unrepeatable moments based on what the coverage actually needs','Spend all your time on one shot regardless of importance','Skip shooting until you feel fully ready'], a: 1 },
+  { q: 'Mid-shoot, an unplanned but genuinely valuable opportunity appears (like a rare candid moment). The smart reaction is:', o: ['Ignore it since it wasn\'t planned','Quickly capture it if possible, without completely abandoning your main responsibility','Stop everything else to chase it no matter what','Only ever follow the original shot list exactly'], a: 1 },
+  { q: 'You\'re covering an event with multiple important people/groups needing attention (like a wedding with two families). The smart approach is:', o: ['Focus only on whoever seems most important to you personally','Plan ahead to fairly balance coverage and communicate timing where possible','Give attention randomly with no real plan','Avoid the issue by minimizing coverage of everyone equally poorly'], a: 1 },
+  { q: 'You made a genuine mistake mid-assignment that affects the outcome. The mature response is:', o: ['Hide it and hope it isn\'t noticed','Acknowledge it honestly and focus on how to fix or mitigate it','Blame external factors only','Quit the assignment immediately out of guilt'], a: 1 },
+  { q: 'Someone asks you to shoot in a very different style than you\'re used to. The growth-minded response is:', o: ['Refuse since it\'s not "your style"','Study references and try to adapt your skills to the new style intentionally','Do it your usual way regardless of what was asked','Say it\'s impossible without trying'], a: 1 },
+  { q: 'You notice a shot you took is slightly overexposed while still out in the field. The smart move is:', o: ['Ignore it, editing can fix everything perfectly','Adjust your settings on the spot and reshoot if possible, rather than relying entirely on fixing it later','Stop shooting for the rest of the day','Assume the camera is broken'], a: 1 },
+  { q: 'During an emotional moment at an event (like a tearful speech), the sensitive approach to filming is:', o: ['Get as close and intrusive as possible for the most dramatic shot','Stay respectful and capture it thoughtfully without being disruptive to the moment','Avoid filming emotional moments entirely, always','Ask the person to redo their emotional reaction for a better angle'], a: 1 },
+  { q: 'Physically risky shots (like climbing somewhere unstable for a better angle) should be approached with:', o: ['No hesitation, the shot always matters more than safety','Caution — weighing whether the shot is truly worth the risk, and avoiding unnecessary danger','Complete avoidance of any elevated or unusual shooting positions ever','Only doing it if no one is watching'], a: 1 },
+  { q: 'Under time pressure, you have to choose between a technically "safe" shot and a more creative but riskier one. The balanced approach is:', o: ['Always take the safe option, creativity doesn\'t matter','Get the safe shot first to guarantee coverage, then attempt the creative one if time allows','Always risk everything on the creative shot','Skip both and wait for a better idea'], a: 1 },
+  { q: 'You\'re told exactly what to do for a task, but you notice a better way to approach it. The smart move is:', o: ['Silently do it your own way without saying anything','Follow instructions but respectfully suggest your idea, especially if time allows discussion','Refuse to do it the way you were told','Do it the told way even if you\'re certain it will clearly fail'], a: 1 },
+  { q: 'After a long day of shooting, you\'re mentally and physically drained but there\'s still one more important moment left to capture. The smart approach is:', o: ['Push through carelessly just to finish quickly','Take a brief reset (water, breath, quick pause) if possible, then refocus fully for the last important moment','Skip it since you\'re tired','Let quality drop without trying to manage your energy'], a: 1 },
+  { q: 'After finishing a shoot or edit, reviewing your own work critically before showing it to anyone else is:', o: ['A waste of time since feedback will catch everything anyway','A valuable habit that catches mistakes early and builds self-awareness','Only necessary for beginners, not once you\'re experienced','Something that should be skipped to save time'], a: 1 },
+  { q: 'You finish your assigned work early and still have the gimbal and camera with you for the rest of the day. What do you do?', o: ['Use the free time to quietly shoot personal content since no one is watching','Message and ask if it\'s okay to use the gear for a personal project, or simply return it if unsure','Keep it for the day without saying anything, you\'ll return it in the evening anyway','Lend it to a friend since you\'re not using it'], a: 1 },
+  { q: 'You\'ve been given access to Premiere Pro, After Effects, and Photoshop strictly for foundation projects. You want to edit a personal reel using them. What\'s the right approach?', o: ['Just do it quietly, it\'s a small thing and no one will notice','Ask directly if personal use is allowed, and follow whatever the answer is','Do it and mention it only if someone asks','Assume it\'s fine since you weren\'t told not to'], a: 1 },
+  { q: 'You don\'t know how to use a certain effect or transition in the editing software. What\'s your best move?', o: ['Avoid using it and pretend you meant to keep it simple','Search for a tutorial, ask someone, and try to learn it properly','Say it\'s not possible to do','Wait for someone else to do it for you every time'], a: 1 },
+  { q: 'You accidentally deleted an important project file while working. What do you do?', o: ['Stay quiet and hope no one notices','Immediately inform the relevant person and try to recover or fix it','Blame a technical glitch without mentioning it was you','Delete the backup too so there\'s no proof'], a: 1 },
+  { q: 'You get a chance at a great personal opportunity (like a personal shoot opportunity) using the foundation\'s equipment during your off hours. What\'s the right first step?', o: ['Just take the opportunity, it\'s your own time','Ask permission first, since the equipment belongs to the foundation, not you','Do it without asking, but return the gear clean afterward','Do it and only mention it if it goes really well'], a: 1 }
 ];
 
 const labels = ['A', 'B', 'C', 'D'];
 const sections = [
-  { start: 0, end: 6, name: 'Photography' },
-  { start: 7, end: 13, name: 'Videography' },
-  { start: 14, end: 20, name: 'Editing' },
-  { start: 21, end: 26, name: 'Judgment' },
-  { start: 27, end: 31, name: 'Integrity' }
+  { start: 0, end: 29, name: 'Photography' },
+  { start: 30, end: 59, name: 'Videography' },
+  { start: 60, end: 89, name: 'Editing' },
+  { start: 90, end: 119, name: 'Common Sense & Judgment' },
+  { start: 120, end: 124, name: 'Integrity' }
 ];
 
 let questions = [];
@@ -1715,6 +1823,7 @@ const progressCount = document.getElementById('progressCount');
 
 let questionTimer = null, timeLeft = 40;
 const timerEl = document.getElementById('qTimer');
+let candidateReason = '';
 
 const LS = 'ga_';
 
@@ -1906,13 +2015,18 @@ function startExam() {
   }, 4500);
 }
 
+function hideShortAnswer() {
+  document.getElementById('shortAnswerWrap').classList.add('hidden');
+  document.getElementById('questionCard').style.display = 'block';
+}
+
 function exitToReg() {
   stopTimer();
   stopTaglineRotation();
   clearState();
+  hideShortAnswer();
   landing.style.display = 'block';
   surveyWrap.style.display = 'none';
-  document.getElementById('questionCard').style.display = 'block';
   document.getElementById('resultsWrap').style.display = 'none';
   const cn = document.getElementById('candidateName');
   const ci = document.getElementById('candidateInterest');
@@ -1930,6 +2044,7 @@ function endExam() {
   stopTaglineRotation();
   clearState();
   document.getElementById('resultModal').classList.remove('show');
+  hideShortAnswer();
   document.getElementById('resultsWrap').style.display = 'none';
   document.getElementById('questionCard').style.display = 'block';
   landing.style.display = 'block';
@@ -1949,6 +2064,7 @@ function resetExam() {
   stopTaglineRotation();
   clearState();
   document.getElementById('resultModal').classList.remove('show');
+  hideShortAnswer();
   questions = rawQuestions.map(q => ({ ...q, o: [...q.o] }));
   shuffle(questions);
   questions.forEach(q => {
@@ -1994,7 +2110,7 @@ function startTimer() {
     else if (timeLeft <= 10) timerEl.className = 'q-timer warning';
     if (timeLeft <= 0) {
       stopTimer();
-      if (current === questions.length - 1) { showResults(); return; }
+      if (current === questions.length - 1) { showShortAnswer(); return; }
       const next = current + 1;
       if (next < questions.length) { current = next; render(); saveState(); }
     }
@@ -2062,7 +2178,13 @@ function select(idx) {
 }
 
 btnNext.addEventListener('click', () => { if (current < questions.length - 1) { current++; render(); saveState(); } });
-btnSubmit.addEventListener('click', showResults);
+btnSubmit.addEventListener('click', showShortAnswer);
+document.getElementById('btnFinalSubmit').addEventListener('click', showResults);
+document.getElementById('shortAnswerInput').addEventListener('input', function() {
+  const val = this.value.trim();
+  document.getElementById('saCharCount').textContent = val.length;
+  document.getElementById('btnFinalSubmit').disabled = val.length < 3;
+});
 document.getElementById('btnSkip').addEventListener('click', () => {
   if (current < questions.length - 1) { current++; render(); saveState(); }
 });
@@ -2072,6 +2194,10 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && surveyWrap.style.display === 'block' && document.getElementById('resultsWrap').style.display !== 'block') {
     if (!btnNext.classList.contains('hidden') && !btnNext.disabled) btnNext.click();
     else if (!btnSubmit.classList.contains('hidden') && !btnSubmit.disabled) btnSubmit.click();
+    else if (!document.getElementById('shortAnswerWrap').classList.contains('hidden')) {
+      const fb = document.getElementById('btnFinalSubmit');
+      if (!fb.disabled) fb.click();
+    }
   }
 });
 
@@ -2144,7 +2270,7 @@ function animateScore(target) {
       currentScore = target;
       clearInterval(interval);
     }
-    el.innerHTML = `<span class="ms-num">${currentScore}</span><span class="ms-out">out of 32</span>`;
+    el.innerHTML = `<span class="ms-num">${currentScore}</span><span class="ms-out">out of ${questions.length}</span>`;
   }, 30);
 }
 
@@ -2156,12 +2282,22 @@ function animateModalScore(target, pctTarget) {
   const interval = setInterval(() => {
     current += step;
     if (current >= target) { current = target; clearInterval(interval); }
-    el.innerHTML = `<span class="ms-num">${current}</span><span class="ms-out">out of 32</span>`;
-    ring.style.setProperty('--pct', `${Math.round((current / 32) * 100)}%`);
+    el.innerHTML = `<span class="ms-num">${current}</span><span class="ms-out">out of ${questions.length}</span>`;
+    ring.style.setProperty('--pct', `${Math.round((current / questions.length) * 100)}%`);
   }, 30);
 }
 
+function showShortAnswer() {
+  stopTimer();
+  document.getElementById('questionCard').style.display = 'none';
+  document.getElementById('shortAnswerWrap').classList.remove('hidden');
+  saveState();
+  document.getElementById('shortAnswerInput').focus();
+}
+
 function showResults() {
+  candidateReason = document.getElementById('shortAnswerInput').value.trim();
+  document.getElementById('shortAnswerWrap').classList.add('hidden');
   const total = questions.length;
   let correct = 0;
   answers.forEach((ans, i) => { if (ans === questions[i].a) correct++; });
@@ -2180,6 +2316,7 @@ function showResults() {
   document.getElementById('modalScore').innerHTML = `<span class="ms-num">0</span><span class="ms-out">out of ${total}</span>`;
   document.getElementById('modalLabel').textContent = label;
   document.getElementById('modalName').textContent = `${candidateName} · ${candidateInterest}`;
+  document.getElementById('modalQuote').textContent = candidateReason ? `"${candidateReason}"` : '';
   document.getElementById('modalRemark').textContent = remark;
   document.getElementById('scoreRing').style.setProperty('--pct', `0%`);
 
@@ -2199,11 +2336,12 @@ function showResults() {
 document.getElementById('modalBtn').addEventListener('click', endExam);
 
 function getResultsMessage(correct) {
+  const pct = correct / questions.length;
   let body;
-  if (correct === 32) body = 'A perfect score. That said, this exam values honesty over perfection — if this was genuinely your understanding, well done. If you answered what you thought we wanted to hear, consider reflecting on that. Skill can be taught. Integrity matters more.';
-  else if (correct >= 27) body = 'A strong, well-rounded score. You demonstrate solid instincts across the board. If you scored perfectly on Section 5 (Integrity) but had gaps in technical sections, that is an excellent sign — skill can be taught, but the right mindset cannot.';
-  else if (correct >= 22) body = 'A good foundation. You have a healthy mix of practical knowledge and the right instincts. Review the areas you missed — especially Section 5, which is the most important indicator of long-term fit.';
-  else if (correct >= 16) body = 'You have some catching up to do on the technical side, but do not be discouraged. This exam is designed to test instincts as much as knowledge. If you answered honestly and scored well on Section 5 (Integrity), you may still be a strong candidate.';
+  if (pct >= 0.99) body = 'A perfect score. That said, this exam values honesty over perfection — if this was genuinely your understanding, well done. If you answered what you thought we wanted to hear, consider reflecting on that. Skill can be taught. Integrity matters more.';
+  else if (pct >= 0.84) body = 'A strong, well-rounded score. You demonstrate solid instincts across the board. If you scored perfectly on Section 5 (Integrity) but had gaps in technical sections, that is an excellent sign — skill can be taught, but the right mindset cannot.';
+  else if (pct >= 0.69) body = 'A good foundation. You have a healthy mix of practical knowledge and the right instincts. Review the areas you missed — especially Section 5, which is the most important indicator of long-term fit.';
+  else if (pct >= 0.50) body = 'You have some catching up to do on the technical side, but do not be discouraged. This exam is designed to test instincts as much as knowledge. If you answered honestly and scored well on Section 5 (Integrity), you may still be a strong candidate.';
   else body = 'This score suggests either a lack of familiarity with the basics, or that you may have rushed through the questions. We encourage you to study the fundamentals — photography, videography, editing — and try again. Remember: honesty and willingness to learn matter more than knowing everything today.';
   return `<strong>What this means</strong>${body}`;
 }
