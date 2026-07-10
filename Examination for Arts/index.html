@@ -1991,12 +1991,8 @@ function shuffle(arr) {
   var warnText = warning.querySelector('.pw-warn-text');
   var dots = document.getElementById('pwDots');
   var lock = document.getElementById('pwLock');
-  var attempts = parseInt(localStorage.getItem('ga_pw_attempts') || '0');
-  var locked = localStorage.getItem('ga_pw_locked') === 'true';
-
-  if (locked) {
-    showLockedWarning();
-  }
+  var attempts = 0;
+  var locked = false;
 
   function updateDots() {
     var val = input.value;
@@ -2017,15 +2013,10 @@ function shuffle(arr) {
     input.disabled = true;
     btn.disabled = true;
     warning.classList.remove('hidden');
-    warnText.innerHTML = 'Multiple failed attempts detected. Your IP address <strong>'.concat(fakeIP(), '</strong> and device fingerprint have been logged. This incident has been reported to the administration team. If you believe this is a mistake, contact <strong>admin@gurukularts.org</strong>.');
+    warnText.innerHTML = 'Multiple failed attempts detected. Your activity has been logged. If you believe this is a mistake, please contact <strong>artsblr@gurukul.org</strong>.';
     document.querySelector('.pw-title').textContent = 'Access Restricted';
-    document.querySelector('.pw-sub').textContent = 'Security protocol activated';
+    document.querySelector('.pw-sub').textContent = 'Please verify your credentials';
     lock.textContent = '\u{1F6AB}';
-  }
-
-  function fakeIP() {
-    var o = function() { return Math.floor(Math.random() * 256); };
-    return o() + '.' + o() + '.' + o() + '.' + o();
   }
 
   function checkPW() {
@@ -2035,8 +2026,6 @@ function shuffle(arr) {
       if (hex(hash) === PW_HASH) {
         error.classList.remove('show');
         warning.classList.add('hidden');
-        localStorage.removeItem('ga_pw_attempts');
-        localStorage.removeItem('ga_pw_locked');
         lock.textContent = '\u2705';
         overlay.classList.add('pw-unlocked');
         setTimeout(function() {
@@ -2045,10 +2034,8 @@ function shuffle(arr) {
         }, 800);
       } else {
         attempts++;
-        localStorage.setItem('ga_pw_attempts', attempts);
         if (attempts >= 4) {
           locked = true;
-          localStorage.setItem('ga_pw_locked', 'true');
           showLockedWarning();
         } else {
           overlay.classList.add('pw-shake');
