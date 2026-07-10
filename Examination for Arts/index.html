@@ -1234,6 +1234,80 @@ body {
   overflow: visible;
 }
 
+.modal-verdict { margin-bottom: 4px; min-height: 32px; }
+
+.verdict-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  animation: verdictPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+@keyframes verdictPop {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.verdict-pass-badge {
+  background: linear-gradient(135deg, #1a7a1a, #2ecc40);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(46, 204, 64, 0.4), 0 0 40px rgba(46, 204, 64, 0.15);
+  animation: verdictPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both, badgeGlow 2s ease-in-out infinite 0.8s;
+}
+.verdict-fail-badge {
+  background: linear-gradient(135deg, #666677, #8888aa);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(100, 100, 120, 0.3);
+}
+@keyframes badgeGlow {
+  0%, 100% { box-shadow: 0 4px 20px rgba(46, 204, 64, 0.4), 0 0 40px rgba(46, 204, 64, 0.15); }
+  50% { box-shadow: 0 4px 30px rgba(46, 204, 64, 0.6), 0 0 60px rgba(46, 204, 64, 0.25), 0 0 80px rgba(46, 204, 64, 0.1); }
+}
+
+.score-ring-pass { background: conic-gradient(#2ecc40 var(--pct, 0%), var(--cream-dark) 0%); animation: ringPulse 2s ease-in-out infinite 1s; }
+.score-ring-fail { background: conic-gradient(#8888aa var(--pct, 0%), var(--cream-dark) 0%); }
+@keyframes ringPulse {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 6px rgba(46,204,64,0.3)); }
+  50% { filter: brightness(1.1) drop-shadow(0 0 20px rgba(46,204,64,0.5)); }
+}
+
+.pass-theme .modal-label {
+  background: linear-gradient(135deg, #2ecc40, #1a7a1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pass-theme .ms-num {
+  color: #2ecc40 !important;
+  text-shadow: 0 0 20px rgba(46, 204, 64, 0.3);
+  animation: scoreShine 2s ease-in-out infinite 0.5s;
+}
+@keyframes scoreShine {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.fail-theme .ms-num {
+  color: #8888aa !important;
+}
+.fail-theme .modal-label {
+  background: linear-gradient(135deg, #8888aa, #666677);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-box.pass-theme::before {
+  background: linear-gradient(90deg, #2ecc40, #1a7a1a, #2ecc40);
+}
+.modal-box.fail-theme::before {
+  background: linear-gradient(90deg, #8888aa, #666677, #8888aa);
+}
+
 .modal-box::before {
   content: '';
   position: absolute;
@@ -1576,6 +1650,37 @@ body {
   pointer-events: none; min-height: 20px;
 }
 .pw-error.show { opacity: 1; transform: translateY(0); }
+.pw-warning {
+  background: rgba(180, 40, 40, 0.08);
+  border: 1px solid rgba(204, 0, 0, 0.25);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 6px 0 14px;
+  text-align: left;
+  animation: pwWarningIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes pwWarningIn {
+  0% { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pw-warning .pw-warn-icon {
+  font-size: 20px;
+  margin-bottom: 6px;
+  animation: pwWarnPulse 1.2s ease-in-out infinite;
+}
+@keyframes pwWarnPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.pw-warning .pw-warn-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+.pw-warning .pw-warn-text strong {
+  color: var(--red);
+}
+
 .pw-btn {
   width: 100%; height: 52px;
   border: none; border-radius: 16px;
@@ -1690,6 +1795,10 @@ input:focus, select:focus {
       <div class="pw-dots" id="pwDots"></div>
     </div>
     <div class="pw-error" id="pwError">Incorrect code. Try again.</div>
+    <div class="pw-warning hidden" id="pwWarning">
+      <div class="pw-warn-icon">⚠️</div>
+      <div class="pw-warn-text"></div>
+    </div>
     <button class="pw-btn" id="pwSubmit">Unlock →</button>
   </div>
 </div>
@@ -1829,6 +1938,7 @@ input:focus, select:focus {
 
 <div class="modal-overlay" id="resultModal">
     <div class="modal-box pop-in">
+      <div class="modal-verdict" id="modalVerdict"></div>
       <div class="modal-icon" id="modalIcon">🏆</div>
       <div class="score-ring" id="scoreRing">
         <div class="score-ring-inner">
@@ -1877,8 +1987,16 @@ function shuffle(arr) {
   var input = document.getElementById('pwInput');
   var btn = document.getElementById('pwSubmit');
   var error = document.getElementById('pwError');
+  var warning = document.getElementById('pwWarning');
+  var warnText = warning.querySelector('.pw-warn-text');
   var dots = document.getElementById('pwDots');
   var lock = document.getElementById('pwLock');
+  var attempts = parseInt(localStorage.getItem('ga_pw_attempts') || '0');
+  var locked = localStorage.getItem('ga_pw_locked') === 'true';
+
+  if (locked) {
+    showLockedWarning();
+  }
 
   function updateDots() {
     var val = input.value;
@@ -1894,11 +2012,31 @@ function shuffle(arr) {
     return Array.from(new Uint8Array(buffer)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
   }
 
+  function showLockedWarning() {
+    error.classList.remove('show');
+    input.disabled = true;
+    btn.disabled = true;
+    warning.classList.remove('hidden');
+    warnText.innerHTML = 'Multiple failed attempts detected. Your IP address <strong>'.concat(fakeIP(), '</strong> and device fingerprint have been logged. This incident has been reported to the administration team. If you believe this is a mistake, contact <strong>admin@gurukularts.org</strong>.');
+    document.querySelector('.pw-title').textContent = 'Access Restricted';
+    document.querySelector('.pw-sub').textContent = 'Security protocol activated';
+    lock.textContent = '\u{1F6AB}';
+  }
+
+  function fakeIP() {
+    var o = function() { return Math.floor(Math.random() * 256); };
+    return o() + '.' + o() + '.' + o() + '.' + o();
+  }
+
   function checkPW() {
+    if (locked) return;
     var enc = new TextEncoder();
     crypto.subtle.digest('SHA-256', enc.encode(input.value)).then(function(hash) {
       if (hex(hash) === PW_HASH) {
         error.classList.remove('show');
+        warning.classList.add('hidden');
+        localStorage.removeItem('ga_pw_attempts');
+        localStorage.removeItem('ga_pw_locked');
         lock.textContent = '\u2705';
         overlay.classList.add('pw-unlocked');
         setTimeout(function() {
@@ -1906,14 +2044,23 @@ function shuffle(arr) {
           if (typeof bootApp === 'function') bootApp();
         }, 800);
       } else {
-        overlay.classList.add('pw-shake');
-        error.classList.add('show');
-        setTimeout(function() {
-          overlay.classList.remove('pw-shake');
-          input.value = '';
-          updateDots();
-          input.focus();
-        }, 500);
+        attempts++;
+        localStorage.setItem('ga_pw_attempts', attempts);
+        if (attempts >= 4) {
+          locked = true;
+          localStorage.setItem('ga_pw_locked', 'true');
+          showLockedWarning();
+        } else {
+          overlay.classList.add('pw-shake');
+          error.classList.add('show');
+          error.textContent = 'Incorrect code. ' + (4 - attempts) + ' attempt' + (4 - attempts === 1 ? '' : 's') + ' remaining.';
+          setTimeout(function() {
+            overlay.classList.remove('pw-shake');
+            input.value = '';
+            updateDots();
+            input.focus();
+          }, 500);
+        }
       }
     });
   }
@@ -2586,6 +2733,72 @@ function animateConfetti() {
   }
 }
 
+var fallColors = ['#6688AA', '#8899AA', '#7799BB', '#557799', '#AABBCC', '#667788'];
+function fallParticles(count) {
+  for (var i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * 0.3,
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: Math.random() * 1.5 + 0.5,
+      w: Math.random() * 6 + 2,
+      h: Math.random() * 6 + 2,
+      color: fallColors[Math.floor(Math.random() * fallColors.length)],
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 3,
+      gravity: 0.02,
+      opacity: 0.6 + Math.random() * 0.4,
+      drift: (Math.random() - 0.5) * 0.3
+    });
+  }
+  if (!animFrame) animateConfetti();
+}
+
+var sparkleColors = ['#FFD700', '#FFA500', '#FF69B4', '#00FFFF', '#FF4500', '#ADFF2F', '#FF1493', '#7B68EE'];
+function sparkleBurst(count) {
+  for (var i = 0; i < count; i++) {
+    var angle = Math.random() * Math.PI * 2;
+    var speed = Math.random() * 12 + 4;
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 60,
+      y: canvas.height / 2 - 40,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 6,
+      w: Math.random() * 4 + 2,
+      h: Math.random() * 4 + 2,
+      color: sparkleColors[Math.floor(Math.random() * sparkleColors.length)],
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 12,
+      gravity: 0.15,
+      opacity: 1,
+      drift: (Math.random() - 0.5) * 0.4
+    });
+  }
+  if (!animFrame) animateConfetti();
+}
+
+function cannonBurst(count) {
+  for (var i = 0; i < count; i++) {
+    var angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.6;
+    var speed = Math.random() * 18 + 8;
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 120,
+      y: canvas.height + 20,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      w: Math.random() * 8 + 3,
+      h: Math.random() * 5 + 2,
+      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 8,
+      gravity: 0.2 + Math.random() * 0.1,
+      opacity: 1,
+      drift: (Math.random() - 0.5) * 0.6
+    });
+  }
+  if (!animFrame) animateConfetti();
+}
+
 function animateScore(target) {
   const el = document.getElementById('totalScore');
   let currentScore = 0;
@@ -2630,21 +2843,38 @@ function showResults() {
 
   const modal = document.getElementById('resultModal');
   const pct = Math.round((correct / total) * 100);
+  var passed = correct >= 20;
 
-  let label, emoji, remark;
-  if (pct >= 90) { label = 'Exceptional'; emoji = '🏆'; remark = 'Outstanding instincts and knowledge. You have a sharp understanding of the craft. Keep this energy — skill with integrity is rare.'; }
-  else if (pct >= 75) { label = 'Strong'; emoji = '🔥'; remark = 'Solid across the board. You demonstrate the right balance of technical know-how and real-world judgment. A little polish and you\'re ready.'; }
-  else if (pct >= 50) { label = 'Good Foundation'; emoji = '📈'; remark = 'You have the basics and the right attitude. Focus on the areas you missed — especially integrity and judgment, which matter most.'; }
-  else if (pct >= 30) { label = 'Needs Development'; emoji = '💪'; remark = 'You\'re early in your journey and that\'s okay. This exam values honesty over expertise. If you answered truthfully, you\'re on the right path.'; }
-  else { label = 'Needs Development'; emoji = '💪'; remark = 'Take this as a learning opportunity. Study the fundamentals, practice with intent, and come back stronger. Everyone starts somewhere.'; }
+  var label, emoji, remark, verdictHTML, verdictClass, verdictIcon;
+
+  if (passed) {
+    verdictClass = 'verdict-pass';
+    verdictIcon = '🎉';
+    verdictHTML = '<div class="verdict-badge verdict-pass-badge">SELECTED FOR TRIALS</div>';
+    if (pct >= 90) { label = 'Exceptional'; emoji = '🏆'; remark = 'Outstanding instincts and knowledge. You have a sharp understanding of the craft. Keep this energy — skill with integrity is rare.'; }
+    else if (pct >= 75) { label = 'Strong'; emoji = '🔥'; remark = 'Solid across the board. You demonstrate the right balance of technical know-how and real-world judgment. A little polish and you\'re ready.'; }
+    else { label = 'Selected'; emoji = '✅'; remark = 'You have the fundamentals and the right attitude. Your selection for trials reflects your potential. Focus on learning and growth during the trial period.'; }
+  } else {
+    verdictClass = 'verdict-fail';
+    verdictIcon = '💫';
+    verdictHTML = '<div class="verdict-badge verdict-fail-badge">NOT SELECTED</div>';
+    if (correct >= 10) {
+      label = 'Not Selected'; emoji = '💫'; remark = 'Thank you for your time and honesty. While your responses show some promising instincts, we feel you would benefit from further preparation before joining the team. We encourage you to reflect on the areas where your answers diverged from the team\'s values, and we would welcome a reapplication in the next cycle.';
+    } else {
+      label = 'Not Selected'; emoji = '🌱'; remark = 'We appreciate you taking the exam. At this stage, your responses indicate that the team\'s current expectations and your approach are not yet aligned. This is not a judgment of your potential — it is about fit and readiness. We strongly encourage you to continue developing your craft and self-awareness, and to consider reapplying after a period of growth. Every great creative started somewhere.';
+    }
+  }
 
   document.getElementById('modalIcon').textContent = emoji;
-  document.getElementById('modalScore').innerHTML = `<span class="ms-num">0</span><span class="ms-out">out of ${total}</span>`;
+  document.getElementById('modalScore').innerHTML = '<span class="ms-num">0</span><span class="ms-out">out of ' + total + '</span>';
   document.getElementById('modalLabel').textContent = label;
-  document.getElementById('modalName').textContent = `${candidateName} · ${candidateInterest}`;
-  document.getElementById('modalQuote').textContent = candidateReason ? `"${candidateReason}"` : '';
+  document.getElementById('modalVerdict').innerHTML = verdictHTML;
+  document.getElementById('modalName').textContent = candidateName + ' \u00B7 ' + candidateInterest;
+  document.getElementById('modalQuote').textContent = candidateReason ? '"' + candidateReason + '"' : '';
   document.getElementById('modalRemark').textContent = remark;
-  document.getElementById('scoreRing').style.setProperty('--pct', `0%`);
+  document.getElementById('scoreRing').style.setProperty('--pct', '0%');
+  document.getElementById('scoreRing').className = 'score-ring ' + (passed ? 'score-ring-pass' : 'score-ring-fail');
+  document.querySelector('.modal-box').className = 'modal-box pop-in ' + (passed ? 'pass-theme' : 'fail-theme');
 
   renderBreakdown('modalBreakdown');
   modal.classList.add('show');
@@ -2653,10 +2883,18 @@ function showResults() {
   document.getElementById('resultsWrap').style.display = 'none';
 
   saveState();
-  setTimeout(() => { animateModalScore(correct, pct); }, 400);
-  setTimeout(() => { burstConfetti(120); }, 600);
-  setTimeout(() => { burstConfetti(80); }, 1100);
-  setTimeout(() => { endExam(); }, 60000);
+  setTimeout(function() { animateModalScore(correct, pct); }, 400);
+  if (passed) {
+    setTimeout(function() { burstConfetti(160); }, 600);
+    setTimeout(function() { sparkleBurst(80); }, 900);
+    setTimeout(function() { cannonBurst(100); }, 1300);
+    setTimeout(function() { burstConfetti(100); }, 1700);
+    setTimeout(function() { sparkleBurst(50); }, 2200);
+    setTimeout(function() { cannonBurst(80); }, 2800);
+  } else {
+    setTimeout(function() { fallParticles(120); }, 600);
+  }
+  setTimeout(function() { endExam(); }, 60000);
 }
 
 document.getElementById('modalBtn').addEventListener('click', endExam);
