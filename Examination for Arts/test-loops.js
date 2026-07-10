@@ -18,7 +18,7 @@
     await sleep(500);
 
     // Answer each question
-    for (let i = 0; i < 32; i++) {
+    for (let i = 0; i < 30; i++) {
       const opts = document.querySelectorAll('.option');
       if (opts.length === 0) { /* skip */ }
       const idx = typeof answerPattern === 'function' ? answerPattern(i) : answerPattern;

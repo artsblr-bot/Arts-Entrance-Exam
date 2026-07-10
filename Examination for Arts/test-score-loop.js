@@ -62,13 +62,12 @@
       return;
     }
 
-    const total = rawQuestions.length;
+    const total = questions.length;
 
     for (let score = 0; score <= total; score++) {
-      // Set up answers: first 'score' are correct (match correctIndex), rest are wrong
-      answers = rawQuestions.map((q, i) => {
-        if (i < score) return q.a; // correct
-        return (q.a + 1) % q.o.length; // wrong
+      answers = questions.map((q, i) => {
+        if (i < score) return q.a;
+        return (q.a + 1) % q.o.length;
       });
       current = 0;
       saveState();

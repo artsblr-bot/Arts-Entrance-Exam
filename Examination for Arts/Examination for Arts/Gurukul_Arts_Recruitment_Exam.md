@@ -84,7 +84,7 @@
 - A) Nothing, just start filming
 - B) Battery level, storage space, and focus ✅
 - C) Only the lens cap
-- D) The client's phone number
+- D) Whether the coffee is nearby
 
 **Q13. You're filming an interview in a noisy place. What's the smart move?**
 - A) Ignore it, background noise adds character
@@ -148,11 +148,11 @@
 
 ## SECTION 4: Common Sense & Situational Judgment (6 Questions)
 
-**Q22. A client calls you last minute and changes the shoot time. What do you do?**
-- A) Ignore the call
+**Q22. The shoot time gets changed at the last minute, with very little notice. What do you do?**
+- A) Ignore the change
 - B) Calmly adjust your plan if possible, and communicate clearly if it's not possible ✅
-- C) Get angry at the client
-- D) Cancel the shoot without telling anyone
+- C) Get frustrated and difficult about it
+- D) Skip the shoot without telling anyone
 
 **Q23. You realize the camera battery wasn't charged the night before a shoot. What should you have done differently?**
 - A) Nothing, it's not your responsibility
@@ -166,7 +166,7 @@
 - C) Ask the moment to happen again later
 - D) Only shoot things that are planned
 
-**Q25. A client says they're unhappy with the photos/videos you delivered. What's the best first response?**
+**Q25. Someone says they're unhappy with the photos/videos from a shoot you worked on. What's the best first response?**
 - A) Argue that they don't understand good work
 - B) Listen calmly, understand what specifically they don't like, and see what can be improved ✅
 - C) Ignore the feedback
@@ -207,7 +207,7 @@
 - C) Say it's not possible to do
 - D) Wait for someone else to do it for you every time
 
-**Q31. You accidentally deleted an important client file while working. What do you do?**
+**Q31. You accidentally deleted an important project file while working. What do you do?**
 - A) Stay quiet and hope no one notices
 - B) Immediately inform the relevant person and try to recover or fix it ✅
 - C) Blame a technical glitch without mentioning it was you
